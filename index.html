@@ -1,43 +1,82 @@
+```html
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DEVA-X AI DOWNLOADER</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DEVA-X AI DOWNLOADER - Light & Dark Luxury Edition</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome 6 Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
     <style>
         :root {
-            --bg-main: #050508;
-            --container-bg: rgba(10, 11, 16, 0.94);
-            --text-primary: #f8fafc;
-            --accent-color: #d4af37;
-            --tab-bg: rgba(212, 175, 55, 0.03);
-            --tab-border: rgba(212, 175, 55, 0.15);
-            --input-bg: rgba(0, 0, 0, 0.5);
-            --input-border: rgba(212, 175, 55, 0.2);
-            --result-bg: rgba(20, 20, 30, 0.75);
+            /* Light Luxury Theme Variables */
+            --bg-main: #f3f5fa;
+            --container-bg: rgba(255, 255, 255, 0.78);
+            --container-border: rgba(255, 255, 255, 0.95);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --accent-gold: #d97706;
+            --accent-glow: rgba(99, 102, 241, 0.25);
+            --tab-bg: rgba(241, 245, 249, 0.85);
+            --tab-border: rgba(203, 213, 225, 0.6);
+            --input-bg: rgba(255, 255, 255, 0.92);
+            --input-border: rgba(199, 210, 254, 0.8);
+            --result-bg: rgba(248, 250, 252, 0.88);
+            --card-shadow: 0 25px 60px -15px rgba(99, 102, 241, 0.12), 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+            --brand-deva: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+            --brand-x: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
+            --brand-sub: linear-gradient(135deg, #1e293b 0%, #475569 100%);
+            --aura-1: rgba(236, 72, 153, 0.25);
+            --aura-2: rgba(99, 102, 241, 0.22);
+            --aura-3: rgba(245, 158, 11, 0.2);
+            --marquee-bg: rgba(255, 255, 255, 0.65);
+            --marquee-border: rgba(217, 119, 6, 0.3);
+            --particle-color: #6366f1;
         }
 
-        /* Cyberpunk Neon Theme Variables */
         [data-theme="cyberpunk"] {
-            --bg-main: #070913;
-            --container-bg: rgba(15, 23, 42, 0.94);
+            /* Obsidian Cyber Dark Theme Variables */
+            --bg-main: #05070e;
+            --container-bg: rgba(11, 15, 25, 0.85);
+            --container-border: rgba(255, 255, 255, 0.12);
             --text-primary: #f8fafc;
-            --accent-color: #38bdf8;
-            --tab-bg: rgba(255, 255, 255, 0.04);
-            --tab-border: rgba(255, 255, 255, 0.08);
-            --input-bg: rgba(0, 0, 0, 0.4);
-            --input-border: rgba(255, 255, 255, 0.1);
-            --result-bg: rgba(0, 0, 0, 0.5);
+            --text-secondary: #94a3b8;
+            --accent-gold: #fbbf24;
+            --accent-glow: rgba(0, 242, 254, 0.3);
+            --tab-bg: rgba(15, 23, 42, 0.75);
+            --tab-border: rgba(255, 255, 255, 0.1);
+            --input-bg: rgba(3, 7, 18, 0.85);
+            --input-border: rgba(99, 102, 241, 0.4);
+            --result-bg: rgba(15, 23, 42, 0.85);
+            --card-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 40px rgba(99, 102, 241, 0.2);
+            --brand-deva: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+            --brand-x: linear-gradient(135deg, #ff007f 0%, #7928ca 100%);
+            --brand-sub: linear-gradient(135deg, #f8fafc 0%, #cbd5e1 100%);
+            --aura-1: rgba(255, 0, 127, 0.28);
+            --aura-2: rgba(0, 242, 254, 0.25);
+            --aura-3: rgba(121, 40, 202, 0.28);
+            --marquee-bg: rgba(3, 7, 18, 0.65);
+            --marquee-border: rgba(245, 158, 11, 0.35);
+            --particle-color: #00ffd5;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-            transition: background 0.3s ease, color 0.3s ease;
+            font-family: 'Plus Jakarta Sans', 'Poppins', sans-serif;
+            transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -47,74 +86,108 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 16px;
             overflow-x: hidden;
             position: relative;
         }
 
-        /* HTML5 Canvas Particle Background */
+        /* HTML5 Canvas Background Particle Network */
         #particleCanvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 1;
+            z-index: 0;
             pointer-events: none;
         }
 
-        /* Dynamic Ambient Glow Aura */
+        /* Ambient Dynamic Glow Aura Blobs */
         .ambient-aura {
-            position: absolute;
-            width: 500px;
-            height: 500px;
-            background: linear-gradient(135deg, #00ffd5, #ff007f, #d4af37);
-            filter: blur(100px);
-            opacity: 0.35;
-            border-radius: 50%;
-            z-index: 1;
-            animation: auraMove 8s ease infinite alternate;
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            z-index: 0;
             pointer-events: none;
+            overflow: hidden;
+        }
+
+        .aura-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.85;
+            animation: auraMove 20s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .aura-1 {
+            width: 45vw;
+            height: 45vw;
+            background: var(--aura-1);
+            top: -10%;
+            left: -10%;
+        }
+
+        .aura-2 {
+            width: 50vw;
+            height: 50vw;
+            background: var(--aura-2);
+            bottom: -15%;
+            right: -10%;
+            animation-delay: -7s;
+        }
+
+        .aura-3 {
+            width: 35vw;
+            height: 35vw;
+            background: var(--aura-3);
+            top: 40%;
+            left: 30%;
+            animation-delay: -14s;
         }
 
         @keyframes auraMove {
-            0% { transform: translate(-80px, -60px) scale(0.9); }
-            50% { transform: translate(80px, 60px) scale(1.1); }
-            100% { transform: translate(-50px, 70px) scale(1); }
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(60px, 80px) scale(1.12); }
+            100% { transform: translate(-40px, -60px) scale(0.92); }
         }
 
-        /* RGB Border Wrapper Effect - Wider Card */
+        /* RGB & Holo Border Card Outer Wrapper */
         .rgb-border-wrapper {
-            max-width: 650px;
+            max-width: 720px;
             width: 100%;
             position: relative;
-            border-radius: 34px;
-            padding: 3px;
-            background: linear-gradient(60deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
-            background-size: 400%;
-            animation: rgbGlow 6s linear infinite;
-            box-shadow: 0 0 40px rgba(212, 175, 55, 0.25), 0 0 70px rgba(0, 255, 213, 0.15);
+            border-radius: 36px;
+            padding: 2px;
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.6), rgba(236, 72, 153, 0.6), rgba(99, 102, 241, 0.6), rgba(16, 185, 129, 0.6));
+            background-size: 300% 300%;
+            animation: borderGradient 8s linear infinite;
+            box-shadow: var(--card-shadow);
             z-index: 2;
         }
 
-        @keyframes rgbGlow {
+        @keyframes borderGradient {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
 
+        /* Main Glassmorphic Container */
         .container {
             background: var(--container-bg);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border-radius: 31px;
-            padding: 32px;
+            backdrop-filter: blur(35px);
+            -webkit-backdrop-filter: blur(35px);
+            border-radius: 34px;
+            padding: clamp(20px, 5vw, 36px);
             position: relative;
             z-index: 2;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 22px;
             width: 100%;
+            border: 1px solid var(--container-border);
         }
 
         /* Top Bar inside Card */
@@ -122,104 +195,122 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            flex-wrap: wrap;
         }
 
         .live-status-bar {
             display: flex;
             gap: 12px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--input-border);
-            padding: 8px 14px;
-            border-radius: 12px;
+            background: var(--tab-bg);
+            border: 1px solid var(--tab-border);
+            padding: 8px 16px;
+            border-radius: 50px;
             font-size: 11px;
-            color: var(--accent-color);
+            color: var(--text-secondary);
+            font-weight: 600;
+            align-items: center;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.03);
         }
 
         .status-item {
             display: flex;
             align-items: center;
             gap: 6px;
-            font-weight: 500;
         }
 
         .theme-toggle-btn {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--input-border);
-            color: var(--accent-color);
-            padding: 8px 14px;
-            border-radius: 12px;
+            background: var(--tab-bg);
+            border: 1px solid var(--tab-border);
+            color: var(--text-primary);
+            padding: 8px 16px;
+            border-radius: 50px;
             cursor: pointer;
             font-size: 12px;
-            font-weight: 600;
+            font-weight: 700;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             position: relative;
             overflow: hidden;
             white-space: nowrap;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
         }
 
         .theme-toggle-btn:hover {
             transform: translateY(-2px);
+            border-color: var(--accent-gold);
         }
 
         .header {
             text-align: center;
         }
 
-        /* RGB Blinking Effect */
+        /* Brand Typography */
         .header h1 {
-            font-size: clamp(17px, 4.5vw, 28px);
-            white-space: nowrap;
-            letter-spacing: -0.6px;
-            font-weight: 700;
-            background: linear-gradient(to right, #ff0055, #00ffcc, #ff00ff, #ffff00);
-            background-size: 300% auto;
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(24px, 5vw, 38px);
+            letter-spacing: -0.5px;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .brand-deva {
+            background: var(--brand-deva);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 4px;
-            animation: rgbBlink 3s ease infinite, textGlow 1.5s ease-in-out infinite alternate;
+            filter: drop-shadow(0 2px 8px rgba(245, 158, 11, 0.25));
         }
 
-        @keyframes rgbBlink {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        .brand-x {
+            background: var(--brand-x);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            padding: 0 4px;
+            filter: drop-shadow(0 2px 8px rgba(236, 72, 153, 0.3));
         }
 
-        @keyframes textGlow {
-            from { filter: drop-shadow(0 0 2px rgba(255, 0, 85, 0.6)); }
-            to { filter: drop-shadow(0 0 10px rgba(0, 255, 204, 0.8)); }
+        .brand-downloader {
+            background: var(--brand-sub);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 0.8em;
+            letter-spacing: 1px;
         }
 
         .header p {
-            font-size: 12px;
-            color: var(--accent-color);
+            font-size: 13px;
+            color: var(--text-secondary);
             letter-spacing: 0.5px;
-            font-weight: 500;
-            opacity: 0.85;
-            margin-bottom: 8px;
+            font-weight: 600;
+            margin-bottom: 12px;
         }
 
-        /* Marquee / Ticker */
+        /* Marquee Ticker */
         .marquee-wrapper {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--input-border);
-            border-radius: 10px;
+            background: var(--marquee-bg);
+            border: 1px solid var(--marquee-border);
+            border-radius: 50px;
             overflow: hidden;
-            padding: 6px 0;
+            padding: 8px 0;
             white-space: nowrap;
             position: relative;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.02);
         }
 
         .marquee-content {
             display: inline-block;
-            animation: scrollMarquee 18s linear infinite;
+            animation: scrollMarquee 20s linear infinite;
             font-size: 11px;
-            font-weight: 500;
-            color: var(--accent-color);
+            font-weight: 700;
+            color: var(--accent-gold);
+            letter-spacing: 0.5px;
         }
 
         @keyframes scrollMarquee {
@@ -235,127 +326,154 @@
         }
 
         .tab {
-            padding: 10px 4px;
+            padding: 12px 6px;
             text-align: center;
             background: var(--tab-bg);
             border: 1px solid var(--tab-border);
-            border-radius: 12px;
+            border-radius: 16px;
             cursor: pointer;
-            font-size: 11px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            color: var(--text-primary);
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-secondary);
             position: relative;
             overflow: hidden;
             white-space: nowrap;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
         }
 
         .tab:hover {
-            border-color: var(--accent-color);
-            color: var(--accent-color);
+            color: var(--text-primary);
+            border-color: var(--accent-gold);
+            transform: translateY(-2px);
         }
 
         .tab.active {
-            background: linear-gradient(135deg, #ff007f, #7a00ff);
+            background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 50%, #6366f1 100%);
             border-color: transparent;
-            color: #fff;
-            font-weight: 700;
-            box-shadow: 0 0 15px rgba(255, 0, 127, 0.5);
+            color: #ffffff;
+            font-weight: 800;
+            box-shadow: 0 8px 20px rgba(236, 72, 153, 0.35);
         }
 
-        /* Input Form */
+        /* Input Form & Action Bar */
         .input-group {
             display: flex;
             gap: 8px;
             align-items: center;
             width: 100%;
+            position: relative;
         }
 
         .input-group input {
             flex: 1;
             min-width: 0;
-            padding: 13px 16px;
+            padding: 15px 18px;
             background: var(--input-bg);
-            border: 1px solid var(--input-border);
-            border-radius: 12px;
+            border: 2px solid var(--input-border);
+            border-radius: 18px;
             color: var(--text-primary);
             font-size: 13px;
+            font-weight: 600;
             outline: none;
-            transition: all 0.3s ease;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
         }
 
         .input-group input:focus {
-            border-color: var(--accent-color);
-            box-shadow: 0 0 15px rgba(251, 191, 36, 0.2);
+            border-color: #8b5cf6;
+            box-shadow: 0 0 20px var(--accent-glow);
         }
 
-        .clear-btn {
+        .quick-action-btns {
+            display: flex;
+            gap: 6px;
+        }
+
+        .clear-btn, .paste-btn {
+            height: 52px;
             padding: 0 14px;
-            height: 48px;
-            background: rgba(239, 68, 68, 0.2);
-            border: 1px solid rgba(239, 68, 68, 0.4);
-            color: #f87171;
-            border-radius: 12px;
+            background: var(--tab-bg);
+            border: 1px solid var(--tab-border);
+            color: var(--text-secondary);
+            border-radius: 16px;
             font-size: 13px;
+            font-weight: 700;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s ease;
+            gap: 6px;
             flex-shrink: 0;
         }
 
         .clear-btn:hover {
-            background: rgba(239, 68, 68, 0.4);
-            color: #fff;
+            background: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+            border-color: rgba(239, 68, 68, 0.3);
             transform: translateY(-2px);
         }
 
-        .input-group button.action-search-btn {
-            padding: 0 18px;
-            height: 48px;
-            background: linear-gradient(135deg, #ff007f, #00ffd5);
+        .paste-btn:hover {
+            background: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+            border-color: rgba(16, 185, 129, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .action-search-btn {
+            height: 52px;
+            padding: 0 22px;
+            background: linear-gradient(135deg, #f59e0b 0%, #ec4899 50%, #8b5cf6 100%);
             border: none;
-            border-radius: 12px;
-            color: #000;
-            font-weight: 700;
+            border-radius: 16px;
+            color: #ffffff;
+            font-weight: 800;
+            font-size: 14px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0, 255, 213, 0.3);
+            box-shadow: 0 8px 25px rgba(236, 72, 153, 0.35);
             position: relative;
             overflow: hidden;
             flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
         }
 
-        .input-group button.action-search-btn:hover {
-            transform: translateY(-2px);
+        .action-search-btn:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 12px 30px rgba(236, 72, 153, 0.45);
         }
 
         /* Result Section */
         .result-box {
             display: none;
             background: var(--result-bg);
-            border: 1px solid var(--input-border);
-            border-radius: 16px;
-            padding: 16px;
+            border: 1px solid var(--container-border);
+            border-radius: 24px;
+            padding: 20px;
             align-items: center;
-            gap: 16px;
-            animation: hardSlideIn 0.4s ease forwards;
+            gap: 20px;
+            animation: slideUp 0.4s ease forwards;
             width: 100%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
         }
 
-        @keyframes hardSlideIn {
-            0% { opacity: 0; transform: translateY(15px); }
+        @keyframes slideUp {
+            0% { opacity: 0; transform: translateY(20px); }
             100% { opacity: 1; transform: translateY(0); }
         }
 
         .result-box img {
-            width: 110px;
-            height: 75px;
+            width: 130px;
+            height: 90px;
             object-fit: cover;
-            border-radius: 10px;
-            border: 1px solid var(--input-border);
+            border-radius: 16px;
+            border: 1px solid var(--tab-border);
             flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
         .video-info {
@@ -364,66 +482,67 @@
         }
 
         .video-info h4 {
-            font-size: 13px;
-            font-weight: 600;
-            margin-bottom: 6px;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 8px;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
-            color: var(--accent-color);
-            word-break: break-word;
+            color: var(--text-primary);
+            line-height: 1.4;
         }
 
-        /* Song Metadata Tags Display */
+        /* Meta Badges */
         .meta-badges {
             display: flex;
             gap: 6px;
             flex-wrap: wrap;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
 
         .badge {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid var(--input-border);
-            padding: 2px 8px;
-            border-radius: 6px;
-            font-size: 10px;
-            font-weight: 600;
-            color: var(--text-primary);
+            background: var(--tab-bg);
+            border: 1px solid var(--tab-border);
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-secondary);
             display: inline-flex;
             align-items: center;
-            gap: 4px;
+            gap: 5px;
             white-space: nowrap;
         }
 
-        /* Multi-Quality Selector */
+        /* Quality Selector */
         .quality-selector {
             display: flex;
             gap: 6px;
             flex-wrap: wrap;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
         }
 
         .q-btn {
-            padding: 4px 10px;
+            padding: 6px 14px;
             font-size: 11px;
-            font-weight: 600;
-            border-radius: 6px;
-            border: 1px solid var(--input-border);
-            background: rgba(255,255,255,0.05);
-            color: var(--text-primary);
+            font-weight: 700;
+            border-radius: 10px;
+            border: 1px solid var(--tab-border);
+            background: var(--tab-bg);
+            color: var(--text-secondary);
             cursor: pointer;
-            position: relative;
-            overflow: hidden;
+            transition: all 0.25s ease;
         }
 
         .q-btn.active {
-            background: #ff007f;
-            color: #fff;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: #ffffff;
             border-color: transparent;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.35);
         }
 
+        /* Action Buttons */
         .action-btns {
             display: flex;
             gap: 8px;
@@ -431,64 +550,71 @@
         }
 
         .btn {
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-size: 11px;
-            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
             text-decoration: none;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
-            gap: 5px;
+            gap: 6px;
             border: none;
             position: relative;
             overflow: hidden;
             white-space: nowrap;
+            transition: all 0.3s ease;
         }
 
         .btn-download {
-            background: linear-gradient(135deg, #059669, #10b981);
-            color: #fff;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
         }
 
         .btn-preview {
-            background: linear-gradient(135deg, #8b5cf6, #ec4899);
-            color: #fff;
+            background: linear-gradient(135deg, #8b5cf6, #6366f1);
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
         }
 
         .btn-open {
-            background: linear-gradient(135deg, #ff007f, #7a00ff);
-            color: #fff;
-            font-weight: 600;
+            background: linear-gradient(135deg, #ec4899, #f43f5e);
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
         }
 
-        /* Preview Container */
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Preview Spectrum Container */
         .preview-container {
             display: none;
             margin-top: 10px;
-            background: rgba(0, 0, 0, 0.75);
-            border: 1px solid var(--input-border);
-            border-radius: 14px;
-            padding: 14px;
+            background: var(--input-bg);
+            border: 1px solid var(--container-border);
+            border-radius: 20px;
+            padding: 16px;
             text-align: center;
             position: relative;
-            overflow: hidden;
             width: 100%;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
         }
 
         .visualizer-bars {
             display: flex;
             justify-content: center;
             align-items: flex-end;
-            gap: 5px;
+            gap: 6px;
             height: 38px;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .v-bar {
             width: 6px;
-            background: linear-gradient(to top, #ff007f, #00ffd5);
-            border-radius: 3px;
+            background: linear-gradient(to top, #ec4899, #8b5cf6);
+            border-radius: 4px;
             animation: bounceBar 0.8s ease-in-out infinite alternate;
         }
 
@@ -508,43 +634,43 @@
 
         .preview-container video, .preview-container audio {
             width: 100%;
-            max-height: 45px;
-            border-radius: 8px;
+            max-height: 220px;
+            border-radius: 12px;
             outline: none;
         }
 
-        /* Owner Footer */
+        /* Owner WhatsApp Footer */
         .owner-footer {
             text-align: center;
-            border-top: 1px solid var(--input-border);
+            border-top: 1px solid var(--tab-border);
             padding-top: 18px;
         }
 
         .whatsapp-btn {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            background: linear-gradient(135deg, #16a34a, #22c55e);
-            color: #fff;
-            padding: 11px 22px;
+            gap: 10px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: #ffffff;
+            padding: 12px 26px;
             border-radius: 50px;
             text-decoration: none;
-            font-size: 12px;
-            font-weight: 600;
-            box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4);
-            animation: pulseWhatsapp 2.5s infinite;
+            font-size: 13px;
+            font-weight: 800;
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.35);
+            animation: pulseWhatsapp 3s infinite;
             position: relative;
             overflow: hidden;
             white-space: nowrap;
         }
 
         @keyframes pulseWhatsapp {
-            0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5); }
-            70% { box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5); }
+            70% { box-shadow: 0 0 0 14px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
         }
 
-        /* Ripple Effect */
+        /* Touch Ripple Animation */
         .ripple {
             position: absolute;
             border-radius: 50%;
@@ -562,17 +688,17 @@
         .loader {
             display: none;
             text-align: center;
-            margin: 12px 0;
+            margin: 16px 0;
         }
-        
+
         .spinner {
-            width: 34px;
-            height: 34px;
-            border: 3px solid rgba(255,0,127,0.1);
-            border-top-color: #ff007f;
-            border-right-color: #00ffd5;
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(236, 72, 153, 0.15);
+            border-top-color: #ec4899;
+            border-right-color: #8b5cf6;
             border-radius: 50%;
-            animation: spin 0.7s linear infinite;
+            animation: spin 0.8s linear infinite;
             margin: 0 auto;
         }
 
@@ -580,183 +706,70 @@
             to { transform: rotate(360deg); }
         }
 
-        /* Reference-inspired dark neon grid design */
-        body {
-            background-color: #07070c;
-            background-image:
-                linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px),
-                radial-gradient(ellipse at 12% 20%, rgba(255,45,35,.36), transparent 42%),
-                radial-gradient(ellipse at 90% 82%, rgba(132,35,255,.30), transparent 42%);
-            background-size: 46px 46px, 46px 46px, auto, auto;
-        }
-        .ambient-aura { opacity: .16; }
-        .rgb-border-wrapper {
-            max-width: 660px;
-            padding: 1px;
-            border-radius: 32px;
-            background: linear-gradient(135deg, rgba(255,30,85,.8), rgba(90,50,255,.65));
-            box-shadow: 0 0 32px rgba(255,0,90,.12), 0 0 55px rgba(110,40,255,.10);
-            animation: none;
-        }
-        .container {
-            background: rgba(5,6,11,.96);
-            border-radius: 31px;
-            padding: clamp(20px, 5vw, 34px);
-            gap: 22px;
-        }
-        .live-status-bar {
-            border-color: rgba(100,110,160,.3);
-            border-radius: 22px;
-            padding: 10px 15px;
-            color: #aab5d0;
-        }
-        .theme-toggle-btn { border-radius: 16px; min-height: 42px; }
-        .header h1 {
-            white-space: normal;
-            font-size: clamp(22px, 5vw, 31px);
-            background: linear-gradient(90deg, #ff1767, #b64dff, #2688ff);
-            background-size: 100% auto;
-            animation: none;
-            filter: none;
-        }
-        .header p { color: #9aa5bd; font-size: 13px; }
-        .marquee-wrapper { border-radius: 12px; }
-        .tabs { gap: 8px; }
-        .tab {
-            background: rgba(255,255,255,.035);
-            border-color: rgba(255,255,255,.08);
-            border-radius: 13px;
-            padding: 12px 4px;
-        }
-        .tab.active { background: linear-gradient(135deg,#ff1767,#773bff); }
-        .input-group input {
-            min-height: 52px;
-            border: 1px solid rgba(255,30,100,.72);
-            border-radius: 17px;
-            box-shadow: 0 0 18px rgba(255,0,100,.12);
-            font-size: 14px;
-        }
-        .input-group button.action-search-btn {
-            height: 52px;
-            min-width: 58px;
-            border-radius: 16px;
-            color: white;
-            background: linear-gradient(135deg,#ff1767,#326dff);
-            box-shadow: 0 0 18px rgba(255,0,100,.2);
-        }
-        .clear-btn { height: 52px; border-radius: 15px; }
-        .result-box, .preview-container {
-            background: rgba(0,0,0,.42);
-            border-color: rgba(255,255,255,.09);
-            border-radius: 20px;
-        }
-        .btn { padding: 9px 12px; font-size: 12px; border-radius: 10px; }
-        .owner-footer { border-color: rgba(255,255,255,.09); }
-        .whatsapp-btn {
-            background: linear-gradient(110deg,#20d875,#0fae9c);
-            border-radius: 30px;
-            font-size: 13px;
-        }
-        @media (max-width: 480px) {
-            body { padding: 12px; }
-            .container { padding: 18px 14px; gap: 18px; }
-            .live-status-bar { gap: 9px; padding: 9px 10px; }
-            .status-item { gap: 4px; }
-            .theme-toggle-btn { padding: 8px 10px; }
-            .result-box { align-items: flex-start; gap: 10px; padding: 11px; }
-            .result-box img { width: 88px; height: 74px; }
-        }
-
-        /* DEVA X premium polish */
-        body { background: #050611; }
-        .ambient-aura {
-            background: linear-gradient(135deg, #ff1767, #742dff, #087dff);
-            opacity: .24;
-        }
-        .rgb-border-wrapper {
-            max-width: 720px;
-            background: linear-gradient(115deg, #ff1680, #663bff, #00baff, #8a2bff, #ff1680);
-            background-size: 300% 300%;
-            box-shadow: 0 0 28px rgba(255, 0, 130, .16), 0 0 52px rgba(52, 83, 255, .13);
-        }
-        .container { gap: 22px; }
-        .top-bar { gap: 12px; }
-        .live-status-bar { background: rgba(4, 7, 20, .72); }
-        .theme-toggle-btn { background: rgba(4, 7, 20, .72); }
-        .header { padding: 7px 0 2px; }
-        .header h1 {
-            display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline;
-            column-gap: 9px; row-gap: 0; white-space: normal; line-height: 1.04;
-            font-size: clamp(30px, 7vw, 49px); letter-spacing: -1.5px;
-            background: none; -webkit-text-fill-color: initial; filter: none;
-            animation: none; margin-bottom: 12px;
-        }
-        .brand-deva { color: #f8faff; text-shadow: 0 0 18px rgba(89, 143, 255, .24); }
-        .brand-x { color: #ed35ff; background: linear-gradient(135deg,#ff1680,#873cff,#168bff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .brand-downloader { flex-basis: 100%; font-size: .72em; letter-spacing: 1px; color: #e6eaff; }
-        .header p { font-size: 14px; letter-spacing: .35px; color: #a8b7dc; }
-        .marquee-wrapper { border-radius: 30px; border-color: rgba(150, 94, 255, .5); background: rgba(5, 8, 25, .7); }
-        .tabs { gap: 10px; }
-        .tab { border-radius: 15px; padding: 13px 5px; background: rgba(9, 14, 34, .78); border-color: rgba(104, 132, 210, .23); }
-        .tab.active { box-shadow: 0 0 22px rgba(230, 28, 170, .25); }
-        .input-group { gap: 9px; }
-        .input-group input { background: rgba(2, 5, 17, .82); }
-        .result-box { box-shadow: inset 0 0 24px rgba(36, 72, 160, .06); }
-        .video-info h4 { color: #c4a1ff; }
-        .owner-footer { padding-top: 20px; }
-        .whatsapp-btn { box-shadow: 0 0 22px rgba(13, 220, 135, .19); }
-        @media (max-width: 480px) {
-            body { padding: 10px; }
+        /* Responsive Breakpoints */
+        @media (max-width: 600px) {
+            body { padding: 8px; }
             .rgb-border-wrapper { border-radius: 28px; }
-            .container { border-radius: 25px; padding: 17px 13px; gap: 17px; }
-            .top-bar { align-items: stretch; }
-            .live-status-bar { flex: 1; min-width: 0; flex-wrap: wrap; gap: 7px; font-size: 10px; }
-            .theme-toggle-btn { padding: 8px 9px; font-size: 11px; }
-            .header h1 { font-size: clamp(27px, 8vw, 36px); }
-            .header p { font-size: 12px; }
-            .tabs { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
-            .tab { font-size: 10px; padding: 11px 2px; }
-            .input-group { gap: 6px; }
-            .input-group input { padding: 12px 10px; font-size: 12px; }
-            .input-group button.action-search-btn { min-width: 48px; padding: 0 13px; }
-            .clear-btn { padding: 0 10px; }
-            .result-box { flex-direction: column; }
-            .result-box img { width: 100%; height: 150px; }
-            .video-info { width: 100%; }
-            .whatsapp-btn { white-space: normal; justify-content: center; padding: 12px 16px; }
+            .container { border-radius: 26px; padding: 18px 14px; gap: 16px; }
+            .top-bar { justify-content: space-between; }
+            .live-status-bar { font-size: 10px; padding: 6px 12px; gap: 8px; }
+            .theme-toggle-btn { padding: 6px 12px; font-size: 11px; }
+            .tabs { grid-template-columns: repeat(4, 1fr); gap: 5px; }
+            .tab { font-size: 10px; padding: 10px 2px; flex-direction: column; gap: 3px; }
+            .tab i { font-size: 14px; }
+            .input-group { gap: 6px; flex-wrap: wrap; }
+            .input-group input { padding: 12px 14px; font-size: 12px; border-radius: 14px; width: 100%; }
+            .quick-action-btns { width: 100%; justify-content: space-between; }
+            .clear-btn, .paste-btn { flex: 1; height: 44px; font-size: 11px; border-radius: 12px; }
+            .action-search-btn { width: 100%; height: 46px; border-radius: 12px; font-size: 13px; }
+            .result-box { flex-direction: column; text-align: center; gap: 14px; padding: 14px; }
+            .result-box img { width: 100%; height: 160px; }
+            .meta-badges, .quality-selector, .action-btns { justify-content: center; }
+            .btn { flex: 1; min-width: 90px; justify-content: center; padding: 8px 10px; font-size: 11px; }
+            .whatsapp-btn { width: 100%; justify-content: center; padding: 12px 16px; font-size: 12px; }
         }
     </style>
 </head>
-<body data-theme="luxury">
+<body data-theme="light">
 
-    <!-- Canvas for Floating Neon Particles -->
+    <!-- HTML5 Canvas Background -->
     <canvas id="particleCanvas"></canvas>
 
     <!-- Dynamic Ambient Glow Aura -->
-    <div class="ambient-aura"></div>
+    <div class="ambient-aura">
+        <div class="aura-blob aura-1"></div>
+        <div class="aura-blob aura-2"></div>
+        <div class="aura-blob aura-3"></div>
+    </div>
 
+    <!-- Outer RGB Holo Border Card -->
     <div class="rgb-border-wrapper">
         <div class="container">
-            <!-- Top Bar: Status + Theme Switcher -->
+
+            <!-- Top Bar: Live Battery, Real-Time Clock, Theme Switcher -->
             <div class="top-bar">
                 <div class="live-status-bar">
                     <div class="status-item" id="batteryStatus">
-                        <i class="fa-solid fa-battery-half"></i> <span id="batteryText">...</span>
+                        <i class="fa-solid fa-battery-half text-amber-500"></i> <span id="batteryText">100%</span>
                     </div>
                     <div class="status-item" id="dateStatus">
-                        <i class="fa-regular fa-calendar-days"></i> <span id="dateText">...</span>
+                        <i class="fa-regular fa-calendar-days text-indigo-500"></i> <span id="dateText">...</span>
                     </div>
                 </div>
                 <button class="theme-toggle-btn" onclick="createRipple(event); toggleTheme()">
-                    <i class="fa-solid fa-circle-half-stroke"></i> <span id="themeName">Cyberpunk</span>
+                    <i class="fa-solid fa-sun text-amber-500" id="themeIcon"></i> <span id="themeName">Cyber-Pearl Light</span>
                 </button>
             </div>
 
+            <!-- Header Title and Marquee Ticker -->
             <div class="header">
-                <h1><span class="brand-deva">DEVA</span> <span class="brand-x">X</span><span class="brand-downloader">DOWNLOADER</span></h1>
-                <p>Fast · Simple · Your Media Hub</p>
-                <!-- Floating Marquee -->
+                <h1>
+                    <span class="brand-deva">DEVA</span>
+                    <span class="brand-x">X</span>
+                    <span class="brand-downloader">DOWNLOADER</span>
+                </h1>
+                <p>Fast · Simple · Your Ultimate Media Hub</p>
+                
                 <div class="marquee-wrapper">
                     <div class="marquee-content">
                         🔥 Instant Instagram DL &nbsp;&bull;&nbsp; ⚡ Fast Facebook DL &nbsp;&bull;&nbsp; 🎥 HD Video Search &nbsp;&bull;&nbsp; 🎵 HD Play Music DL &nbsp;&bull;&nbsp; 👑 Pᴏᴡᴇʀᴇᴅ Bʏ Dᴇᴠᴀ-X-Dᴏᴡɴʟᴏᴀᴅᴇʀ
@@ -764,25 +777,36 @@
                 </div>
             </div>
 
-            <!-- Tabs -->
+            <!-- Platform Tabs -->
             <div class="tabs">
-                <div class="tab active" onclick="createRipple(event); switchPlatform('instagram', this)"><i class="fa-brands fa-instagram"></i> Insta</div>
-                <div class="tab" onclick="createRipple(event); switchPlatform('facebook', this)"><i class="fa-brands fa-facebook"></i> FB</div>
-                <div class="tab" onclick="createRipple(event); switchPlatform('video', this)"><i class="fa-solid fa-video"></i> Video</div>
-                <div class="tab" onclick="createRipple(event); switchPlatform('play', this)"><i class="fa-solid fa-music"></i> Play</div>
+                <div class="tab active" onclick="createRipple(event); switchPlatform('instagram', this)">
+                    <i class="fa-brands fa-instagram text-pink-500"></i> <span>Insta</span>
+                </div>
+                <div class="tab" onclick="createRipple(event); switchPlatform('facebook', this)">
+                    <i class="fa-brands fa-facebook text-blue-500"></i> <span>FB</span>
+                </div>
+                <div class="tab" onclick="createRipple(event); switchPlatform('video', this)">
+                    <i class="fa-solid fa-video text-purple-500"></i> <span>Video</span>
+                </div>
+                <div class="tab" onclick="createRipple(event); switchPlatform('play', this)">
+                    <i class="fa-solid fa-music text-amber-500"></i> <span>Play</span>
+                </div>
             </div>
 
-            <!-- Input Form with Clear Button Outside -->
+            <!-- Input Area with Quick Actions & Search Button -->
             <div class="input-group">
-                <input type="text" id="videoUrl" placeholder="Paste Instagram link here...">
-                <button class="clear-btn" onclick="createRipple(event); clearInput()" title="Clear Search"><i class="fa-solid fa-trash-can"></i></button>
-                <button class="action-search-btn" onclick="createRipple(event); fetchMedia()"><i class="fa-solid fa-bolt"></i></button>
+                <input type="text" id="videoUrl" placeholder="Paste Instagram link here..." onkeydown="if(event.key==='Enter') fetchMedia()">
+                <div class="quick-action-btns">
+                    <button class="paste-btn" onclick="createRipple(event); pasteFromClipboard()" title="Paste Link"><i class="fa-regular fa-clipboard"></i> Paste</button>
+                    <button class="clear-btn" onclick="createRipple(event); clearInput()" title="Clear Search"><i class="fa-solid fa-trash-can"></i></button>
+                </div>
+                <button class="action-search-btn" onclick="createRipple(event); fetchMedia()"><i class="fa-solid fa-bolt"></i> Fetch</button>
             </div>
 
-            <!-- Loader -->
+            <!-- Loader Spinner -->
             <div class="loader" id="loader">
                 <div class="spinner"></div>
-                <p style="font-size: 11px; margin-top: 5px; color: var(--accent-color); font-weight: 500;">Fetching media...</p>
+                <p style="font-size: 12px; margin-top: 8px; color: var(--accent-gold); font-weight: 700;">Extracting High-Speed Media Stream...</p>
             </div>
 
             <!-- Result Card -->
@@ -790,33 +814,40 @@
                 <img id="thumbnail" src="" alt="Thumbnail">
                 <div class="video-info">
                     <h4 id="videoTitle">Media Ready</h4>
-                    <!-- Song Metadata Tags Display -->
+                    
+                    <!-- Song/Video Metadata Badges -->
                     <div class="meta-badges" id="metaBadges">
-                        <span class="badge"><i class="fa-solid fa-user-music"></i> <span id="badgeArtist">AB MASTER</span></span>
-                        <span class="badge"><i class="fa-regular fa-clock"></i> <span id="badgeDuration">3:45</span></span>
-                        <span class="badge"><i class="fa-solid fa-headphones"></i> 320kbps MP3</span>
+                        <span class="badge"><i class="fa-solid fa-user-astronaut text-indigo-500"></i> <span id="badgeArtist">DEVA AI</span></span>
+                        <span class="badge"><i class="fa-regular fa-clock text-rose-500"></i> <span id="badgeDuration">03:45</span></span>
+                        <span class="badge"><i class="fa-solid fa-headphones text-amber-500"></i> 320kbps HD</span>
                     </div>
+
                     <!-- Multi-Quality Selector -->
                     <div class="quality-selector" id="qualitySelector">
                         <button class="q-btn active" onclick="createRipple(event); setQuality('hd', this)">HD</button>
                         <button class="q-btn" onclick="createRipple(event); setQuality('sd', this)">SD</button>
                         <button class="q-btn" onclick="createRipple(event); setQuality('audio', this)">MP3</button>
                     </div>
+
+                    <!-- Action Buttons -->
                     <div class="action-btns">
                         <a id="downloadBtn" href="#" class="btn btn-download" download target="_blank" onclick="createRipple(event)"><i class="fa-solid fa-download"></i> Download</a>
                         <button class="btn btn-preview" onclick="createRipple(event); togglePreview()"><i class="fa-solid fa-play"></i> Preview</button>
-                        <a id="openBtn" href="#" class="btn btn-open" target="_blank" onclick="createRipple(event)"><i class="fa-solid fa-external-link-alt"></i> Open</a>
+                        <a id="openBtn" href="#" class="btn btn-open" target="_blank" onclick="createRipple(event)"><i class="fa-solid fa-arrow-up-right-from-square"></i> Open</a>
                     </div>
                 </div>
             </div>
 
-            <!-- Built-in Preview Player Modal with Audio Visualizer -->
+            <!-- Built-in Audio/Video Preview Player with Equalizer Bars -->
             <div class="preview-container" id="previewContainer">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-                    <span style="font-size:11px; color:var(--accent-color); font-weight:600;"><i class="fa-solid fa-headphones"></i> Live Audio Spectrum Player</span>
-                    <i class="fa-solid fa-xmark" style="cursor:pointer; font-size:14px; color:#fff;" onclick="togglePreview()"></i>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                    <span style="font-size:12px; color:var(--text-primary); font-weight:800; display:flex; align-items:center; gap:6px;">
+                        <i class="fa-solid fa-headphones text-pink-500"></i> Live Audio Spectrum Player
+                    </span>
+                    <i class="fa-solid fa-xmark text-lg cursor-pointer hover:text-red-500 transition-colors" onclick="togglePreview()"></i>
                 </div>
-                <!-- Real-Time Audio Visualizer / Frequency Spectrum -->
+                
+                <!-- Audio Visualizer Spectrum Bars -->
                 <div class="visualizer-bars">
                     <div class="v-bar"></div>
                     <div class="v-bar"></div>
@@ -827,19 +858,37 @@
                     <div class="v-bar"></div>
                     <div class="v-bar"></div>
                 </div>
+
                 <div id="playerWrapper"></div>
             </div>
 
-            <!-- Owner WhatsApp Button Footer -->
+            <!-- Owner WhatsApp Footer Button -->
             <div class="owner-footer">
-                <a href="https://wa.me/916260021735?text=Hello%20DEVA%20AI,%20I%20want%20to%20talk%20about%20your%20DEVA AI%20Downloader!" class="whatsapp-btn" target="_blank" onclick="createRipple(event)">
-                    <i class="fa-brands fa-whatsapp" style="font-size: 18px;"></i> Contact Owner on WhatsApp
+                <a href="https://wa.me/916260021735?text=Hello%20DEVA%20AI,%20I%20am%20using%20your%20DEVA%20AI%20Downloader!" class="whatsapp-btn" target="_blank" onclick="createRipple(event)">
+                    <i class="fa-brands fa-whatsapp" style="font-size: 20px;"></i> Contact Owner on WhatsApp
                 </a>
             </div>
+
         </div>
     </div>
 
+    <!-- JavaScript Logic & App Functionality -->
     <script>
+        // Paste from Clipboard Action
+        async function pasteFromClipboard() {
+            try {
+                const text = await navigator.clipboard.readText();
+                if (text) {
+                    const input = document.getElementById('videoUrl');
+                    input.value = text;
+                    input.focus();
+                }
+            } catch (err) {
+                alert('Please allow clipboard permissions or paste manually.');
+            }
+        }
+
+        // Clear Search Input
         function clearInput() {
             const input = document.getElementById('videoUrl');
             input.value = '';
@@ -848,15 +897,17 @@
             document.getElementById('previewContainer').style.display = 'none';
         }
 
+        // Ripple Effect on Click
         function createRipple(event) {
             const button = event.currentTarget;
             const circle = document.createElement("span");
             const diameter = Math.max(button.clientWidth, button.clientHeight);
             const radius = diameter / 2;
 
+            const rect = button.getBoundingClientRect();
             circle.style.width = circle.style.height = `${diameter}px`;
-            circle.style.left = `${event.clientX - button.getBoundingClientRect().left - radius}px`;
-            circle.style.top = `${event.clientY - button.getBoundingClientRect().top - radius}px`;
+            circle.style.left = `${event.clientX - rect.left - radius}px`;
+            circle.style.top = `${event.clientY - rect.top - radius}px`;
             circle.classList.add("ripple");
 
             const existingRipple = button.getElementsByClassName("ripple")[0];
@@ -865,6 +916,7 @@
             button.appendChild(circle);
         }
 
+        // Particle Canvas Background
         const canvas = document.getElementById('particleCanvas');
         const ctx = canvas.getContext('2d');
         let particlesArray = [];
@@ -881,9 +933,8 @@
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
                 this.size = Math.random() * 2.5 + 1;
-                this.speedX = (Math.random() - 0.5) * 0.8;
-                this.speedY = (Math.random() - 0.5) * 0.8;
-                this.color = Math.random() > 0.5 ? '#ff007f' : '#00ffd5';
+                this.speedX = (Math.random() - 0.5) * 0.7;
+                this.speedY = (Math.random() - 0.5) * 0.7;
             }
             update() {
                 this.x += this.speedX;
@@ -892,9 +943,8 @@
                 if (this.y < 0 || this.y > canvas.height) this.speedY = -this.speedY;
             }
             draw() {
-                ctx.fillStyle = this.color;
-                ctx.shadowBlur = 10;
-                ctx.shadowColor = this.color;
+                const isDark = document.body.getAttribute('data-theme') === 'cyberpunk';
+                ctx.fillStyle = isDark ? 'rgba(0, 255, 213, 0.6)' : 'rgba(99, 102, 241, 0.5)';
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
@@ -903,7 +953,8 @@
 
         function initParticles() {
             particlesArray = [];
-            for (let i = 0; i < 60; i++) particlesArray.push(new Particle());
+            const particleCount = Math.min(Math.floor(window.innerWidth / 20), 55);
+            for (let i = 0; i < particleCount; i++) particlesArray.push(new Particle());
         }
         initParticles();
 
@@ -914,28 +965,34 @@
         }
         animateParticles();
 
+        // Theme Toggle (Light Luxury vs Obsidian Cyber Dark)
         function toggleTheme() {
             const body = document.body;
             const currentTheme = body.getAttribute('data-theme');
             const themeName = document.getElementById('themeName');
+            const themeIcon = document.getElementById('themeIcon');
             
-            if (currentTheme === 'luxury') {
+            if (currentTheme === 'light') {
                 body.setAttribute('data-theme', 'cyberpunk');
-                themeName.innerText = 'Luxury';
+                themeName.innerText = 'Obsidian Dark';
+                themeIcon.className = 'fa-solid fa-moon text-cyan-400';
             } else {
-                body.setAttribute('data-theme', 'luxury');
-                themeName.innerText = 'Cyberpunk';
+                body.setAttribute('data-theme', 'light');
+                themeName.innerText = 'Cyber-Pearl Light';
+                themeIcon.className = 'fa-solid fa-sun text-amber-500';
             }
         }
 
+        // Live Real-Time Date and Clock
         function updateDateTime() {
             const now = new Date();
-            const options = { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+            const options = { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
             document.getElementById('dateText').innerText = now.toLocaleDateString('en-US', options);
         }
         setInterval(updateDateTime, 1000);
         updateDateTime();
 
+        // Battery Status Indicator
         async function updateBatteryStatus() {
             if ('getBattery' in navigator) {
                 try {
@@ -943,10 +1000,10 @@
                     function updateStatus() {
                         const level = Math.round(battery.level * 100);
                         const isCharging = battery.charging;
-                        let iconClass = "fa-battery-full";
-                        if (level <= 20) iconClass = "fa-battery-quarter";
-                        else if (level <= 50) iconClass = "fa-battery-half";
-                        else if (level <= 80) iconClass = "fa-battery-three-quarters";
+                        let iconClass = "fa-battery-full text-emerald-500";
+                        if (level <= 20) iconClass = "fa-battery-quarter text-red-500";
+                        else if (level <= 50) iconClass = "fa-battery-half text-amber-500";
+                        else if (level <= 80) iconClass = "fa-battery-three-quarters text-indigo-500";
 
                         let chargingText = isCharging ? ' ⚡' : '';
                         document.getElementById('batteryStatus').innerHTML = `<i class="fa-solid ${iconClass}"></i> <span>${level}%${chargingText}</span>`;
@@ -955,14 +1012,15 @@
                     battery.addEventListener('levelchange', updateStatus);
                     battery.addEventListener('chargingchange', updateStatus);
                 } catch (e) {
-                    document.getElementById('batteryStatus').innerHTML = `<i class="fa-solid fa-bolt"></i> <span>Ready</span>`;
+                    document.getElementById('batteryStatus').innerHTML = `<i class="fa-solid fa-bolt text-amber-500"></i> <span>Ready</span>`;
                 }
             } else {
-                document.getElementById('batteryStatus').innerHTML = `<i class="fa-solid fa-bolt"></i> <span>Master</span>`;
+                document.getElementById('batteryStatus').innerHTML = `<i class="fa-solid fa-bolt text-amber-500"></i> <span>Ready</span>`;
             }
         }
         updateBatteryStatus();
 
+        // App Platform Switcher
         let currentPlatform = 'instagram';
         let mediaLinksData = { hd: '#', sd: '#', audio: '#' };
         let activeMediaUrl = '#';
@@ -974,18 +1032,19 @@
             
             const input = document.getElementById('videoUrl');
             if (platform === 'instagram') {
-                input.placeholder = "Paste Instagram link here...";
+                input.placeholder = "Paste Instagram video or reel link here...";
             } else if (platform === 'facebook') {
-                input.placeholder = "Paste Facebook link here...";
+                input.placeholder = "Paste Facebook video link here...";
             } else if (platform === 'video') {
-                input.placeholder = "Search video (e.g., Despacito)...";
+                input.placeholder = "Search video (e.g., Despacito, Alan Walker)...";
             } else if (platform === 'play') {
-                input.placeholder = "Search song (e.g., Shape of You)...";
+                input.placeholder = "Search song (e.g., Shape of You, Believer)...";
             }
             document.getElementById('resultBox').style.display = 'none';
             document.getElementById('previewContainer').style.display = 'none';
         }
 
+        // Quality Switcher
         function setQuality(qualityType, btnElement) {
             document.querySelectorAll('.q-btn').forEach(b => b.classList.remove('active'));
             btnElement.classList.add('active');
@@ -995,6 +1054,7 @@
             document.getElementById('openBtn').href = activeMediaUrl;
         }
 
+        // Toggle Audio/Video Preview Player
         function togglePreview() {
             const previewBox = document.getElementById('previewContainer');
             const wrapper = document.getElementById('playerWrapper');
@@ -1012,6 +1072,7 @@
             }
         }
 
+        // Media Resolvers
         function findMediaUrl(value) {
             if (!value) return '';
             if (typeof value === 'string') {
@@ -1047,6 +1108,7 @@
             return fallback;
         }
 
+        // Fetch Media API Handler
         async function fetchMedia() {
             const queryVal = document.getElementById('videoUrl').value.trim();
             if (!queryVal) {
@@ -1088,24 +1150,24 @@
 
                 const primaryLink = findMediaUrl(data);
                 if (!primaryLink) {
-                    const message = getNestedValue(data, ['message','error','detail'], 'API response did not contain a direct media URL. The API endpoint may use a different format or may not support this feature.');
+                    const message = getNestedValue(data, ['message','error','detail'], 'API response did not contain a direct media URL.');
                     throw new Error(String(message));
                 }
 
-                const thumb = getNestedValue(data, ['thumbnail','thumbnail_url','cover','image','artwork','image_url'], 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=200');
+                const thumb = getNestedValue(data, ['thumbnail','thumbnail_url','cover','image','artwork','image_url'], 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400');
                 const title = getNestedValue(data, ['title','name','track_name','video_title'], 'Media Download Ready');
-                const artist = getNestedValue(data, ['artist','channel','uploader','author'], currentPlatform === 'play' ? 'Music' : 'Media');
-                const duration = getNestedValue(data, ['duration','length','timestamp'], '');
+                const artist = getNestedValue(data, ['artist','channel','uploader','author'], currentPlatform === 'play' ? 'Music' : 'DEVA AI');
+                const duration = getNestedValue(data, ['duration','length','timestamp'], 'Ready');
                 const hd = findMediaUrl(getNestedValue(data, ['hd','high_quality','highQuality','video_hd'], '')) || primaryLink;
                 const sd = findMediaUrl(getNestedValue(data, ['sd','low_quality','lowQuality','video_sd'], '')) || primaryLink;
                 const audio = findMediaUrl(getNestedValue(data, ['audio','mp3','audio_url','music'], '')) || primaryLink;
 
                 mediaLinksData = { hd, sd, audio };
                 activeMediaUrl = currentPlatform === 'play' ? audio : hd;
-                document.getElementById('thumbnail').src = typeof thumb === 'string' ? thumb : 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=200';
+                document.getElementById('thumbnail').src = typeof thumb === 'string' ? thumb : 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400';
                 document.getElementById('videoTitle').innerText = String(title);
                 document.getElementById('badgeArtist').innerText = String(artist);
-                document.getElementById('badgeDuration').innerText = duration ? String(duration) : 'Ready';
+                document.getElementById('badgeDuration').innerText = String(duration);
 
                 document.querySelectorAll('.q-btn').forEach((b, idx) => {
                     b.classList.toggle('active', currentPlatform === 'play' ? idx === 2 : idx === 0);
@@ -1122,3 +1184,4 @@
     </script>
 </body>
 </html>
+```
