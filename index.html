@@ -1,435 +1,873 @@
-```html
 <!DOCTYPE html>
-<html lang="en" class="light">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DEVA-X AI DOWNLOADER - Ultra-Premium Media Hub</title>
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@600;800;900&display=swap" rel="stylesheet">
-    
-    <!-- Icons (FontAwesome & Lucide support) -->
+    <title>DEVA-X AI DOWNLOADER</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        orbitron: ['Orbitron', 'sans-serif'],
-                    },
-                    colors: {
-                        pearl: {
-                            bg: '#f4f5f9',
-                            card: 'rgba(255, 255, 255, 0.75)',
-                            accent: '#d4af37',
-                            glow: 'rgba(212, 175, 55, 0.3)'
-                        },
-                        obsidian: {
-                            bg: '#090a0f',
-                            card: 'rgba(15, 23, 42, 0.75)',
-                            accent: '#00f0ff',
-                            glow: 'rgba(0, 240, 255, 0.3)'
-                        }
-                    },
-                    animation: {
-                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'marquee': 'marquee 25s linear infinite',
-                        'aurora': 'aurora 15s ease infinite alternate',
-                    },
-                    keyframes: {
-                        marquee: {
-                            '0%': { transform: 'translateX(100%)' },
-                            '100%': { transform: 'translateX(-100%)' },
-                        },
-                        aurora: {
-                            '0%': { opacity: '0.4', transform: 'scale(1) rotate(0deg)' },
-                            '100%': { opacity: '0.8', transform: 'scale(1.2) rotate(10deg)' },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    
     <style>
-        /* Modern Glassmorphic Styles & Luxury Variables */
         :root {
-            --primary-glow: rgba(212, 175, 55, 0.4);
-            --card-border: rgba(212, 175, 55, 0.25);
-            --card-bg: rgba(255, 255, 255, 0.65);
-            --text-main: #1e293b;
+            --bg-main: #050508;
+            --container-bg: rgba(10, 11, 16, 0.94);
+            --text-primary: #f8fafc;
+            --accent-color: #d4af37;
+            --tab-bg: rgba(212, 175, 55, 0.03);
+            --tab-border: rgba(212, 175, 55, 0.15);
+            --input-bg: rgba(0, 0, 0, 0.5);
+            --input-border: rgba(212, 175, 55, 0.2);
+            --result-bg: rgba(20, 20, 30, 0.75);
         }
 
-        .dark {
-            --primary-glow: rgba(0, 240, 255, 0.4);
-            --card-border: rgba(0, 240, 255, 0.25);
-            --card-bg: rgba(13, 17, 23, 0.75);
-            --text-main: #f8fafc;
+        /* Cyberpunk Neon Theme Variables */
+        [data-theme="cyberpunk"] {
+            --bg-main: #070913;
+            --container-bg: rgba(15, 23, 42, 0.94);
+            --text-primary: #f8fafc;
+            --accent-color: #38bdf8;
+            --tab-bg: rgba(255, 255, 255, 0.04);
+            --tab-border: rgba(255, 255, 255, 0.08);
+            --input-bg: rgba(0, 0, 0, 0.4);
+            --input-border: rgba(255, 255, 255, 0.1);
+            --result-bg: rgba(0, 0, 0, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f4f5f9;
-            color: var(--text-main);
-            transition: background-color 0.5s ease, color 0.5s ease;
-            overflow-x: hidden;
+            background: var(--bg-main);
+            color: var(--text-primary);
             min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
         }
 
-        .dark body {
-            background-color: #060709;
-        }
-
-        /* Glassmorphism Pill & Cards */
-        .glass-pill {
-            background: var(--card-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--card-border);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.08);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .glass-pill:hover {
-            box-shadow: 0 10px 40px 0 var(--primary-glow);
-            border-color: rgba(212, 175, 55, 0.5);
-        }
-
-        .dark .glass-pill:hover {
-            border-color: rgba(0, 240, 255, 0.5);
-        }
-
-        /* Particle Canvas Overlay */
+        /* HTML5 Canvas Particle Background */
         #particleCanvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            z-index: 1;
             pointer-events: none;
-            z-index: 0;
         }
 
-        /* Ambient Aura Mesh */
-        .aura-mesh {
-            position: fixed;
-            width: 600px;
-            height: 600px;
-            border-radius: 50%;
-            filter: blur(120px);
-            pointer-events: none;
-            z-index: 0;
+        /* Dynamic Ambient Glow Aura */
+        .ambient-aura {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: linear-gradient(135deg, #00ffd5, #ff007f, #d4af37);
+            filter: blur(100px);
             opacity: 0.35;
-            transition: background 0.5s ease;
+            border-radius: 50%;
+            z-index: 1;
+            animation: auraMove 8s ease infinite alternate;
+            pointer-events: none;
         }
 
-        .aura-1 {
-            top: -100px;
-            left: -100px;
-            background: radial-gradient(circle, #ffd700, transparent);
+        @keyframes auraMove {
+            0% { transform: translate(-80px, -60px) scale(0.9); }
+            50% { transform: translate(80px, 60px) scale(1.1); }
+            100% { transform: translate(-50px, 70px) scale(1); }
         }
 
-        .dark .aura-1 {
-            background: radial-gradient(circle, #00f0ff, transparent);
+        /* RGB Border Wrapper Effect - Wider Card */
+        .rgb-border-wrapper {
+            max-width: 650px;
+            width: 100%;
+            position: relative;
+            border-radius: 34px;
+            padding: 3px;
+            background: linear-gradient(60deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+            background-size: 400%;
+            animation: rgbGlow 6s linear infinite;
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.25), 0 0 70px rgba(0, 255, 213, 0.15);
+            z-index: 2;
         }
 
-        .aura-2 {
-            bottom: -100px;
-            right: -100px;
-            background: radial-gradient(circle, #ff007f, transparent);
+        @keyframes rgbGlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
-        .dark .aura-2 {
-            background: radial-gradient(circle, #7000ff, transparent);
+        .container {
+            background: var(--container-bg);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-radius: 31px;
+            padding: 32px;
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
         }
 
-        /* Ripple Effect */
-        .ripple-btn {
+        /* Top Bar inside Card */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .live-status-bar {
+            display: flex;
+            gap: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--input-border);
+            padding: 8px 14px;
+            border-radius: 12px;
+            font-size: 11px;
+            color: var(--accent-color);
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 500;
+        }
+
+        .theme-toggle-btn {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--input-border);
+            color: var(--accent-color);
+            padding: 8px 14px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            position: relative;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .theme-toggle-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .header {
+            text-align: center;
+        }
+
+        /* RGB Blinking Effect */
+        .header h1 {
+            font-size: clamp(17px, 4.5vw, 28px);
+            white-space: nowrap;
+            letter-spacing: -0.6px;
+            font-weight: 700;
+            background: linear-gradient(to right, #ff0055, #00ffcc, #ff00ff, #ffff00);
+            background-size: 300% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 4px;
+            animation: rgbBlink 3s ease infinite, textGlow 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes rgbBlink {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes textGlow {
+            from { filter: drop-shadow(0 0 2px rgba(255, 0, 85, 0.6)); }
+            to { filter: drop-shadow(0 0 10px rgba(0, 255, 204, 0.8)); }
+        }
+
+        .header p {
+            font-size: 12px;
+            color: var(--accent-color);
+            letter-spacing: 0.5px;
+            font-weight: 500;
+            opacity: 0.85;
+            margin-bottom: 8px;
+        }
+
+        /* Marquee / Ticker */
+        .marquee-wrapper {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--input-border);
+            border-radius: 10px;
+            overflow: hidden;
+            padding: 6px 0;
+            white-space: nowrap;
+            position: relative;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
+        }
+
+        .marquee-content {
+            display: inline-block;
+            animation: scrollMarquee 18s linear infinite;
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--accent-color);
+        }
+
+        @keyframes scrollMarquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* Platform Tabs */
+        .tabs {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        .tab {
+            padding: 10px 4px;
+            text-align: center;
+            background: var(--tab-bg);
+            border: 1px solid var(--tab-border);
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            color: var(--text-primary);
+            position: relative;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .tab:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, #ff007f, #7a00ff);
+            border-color: transparent;
+            color: #fff;
+            font-weight: 700;
+            box-shadow: 0 0 15px rgba(255, 0, 127, 0.5);
+        }
+
+        /* Input Form */
+        .input-group {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            width: 100%;
+        }
+
+        .input-group input {
+            flex: 1;
+            min-width: 0;
+            padding: 13px 16px;
+            background: var(--input-bg);
+            border: 1px solid var(--input-border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 13px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 15px rgba(251, 191, 36, 0.2);
+        }
+
+        .clear-btn {
+            padding: 0 14px;
+            height: 48px;
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            color: #f87171;
+            border-radius: 12px;
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .clear-btn:hover {
+            background: rgba(239, 68, 68, 0.4);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .input-group button.action-search-btn {
+            padding: 0 18px;
+            height: 48px;
+            background: linear-gradient(135deg, #ff007f, #00ffd5);
+            border: none;
+            border-radius: 12px;
+            color: #000;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 255, 213, 0.3);
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .input-group button.action-search-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Result Section */
+        .result-box {
+            display: none;
+            background: var(--result-bg);
+            border: 1px solid var(--input-border);
+            border-radius: 16px;
+            padding: 16px;
+            align-items: center;
+            gap: 16px;
+            animation: hardSlideIn 0.4s ease forwards;
+            width: 100%;
+        }
+
+        @keyframes hardSlideIn {
+            0% { opacity: 0; transform: translateY(15px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-box img {
+            width: 110px;
+            height: 75px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 1px solid var(--input-border);
+            flex-shrink: 0;
+        }
+
+        .video-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .video-info h4 {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            color: var(--accent-color);
+            word-break: break-word;
+        }
+
+        /* Song Metadata Tags Display */
+        .meta-badges {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+
+        .badge {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--input-border);
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
+
+        /* Multi-Quality Selector */
+        .quality-selector {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+
+        .q-btn {
+            padding: 4px 10px;
+            font-size: 11px;
+            font-weight: 600;
+            border-radius: 6px;
+            border: 1px solid var(--input-border);
+            background: rgba(255,255,255,0.05);
+            color: var(--text-primary);
+            cursor: pointer;
             position: relative;
             overflow: hidden;
         }
 
+        .q-btn.active {
+            background: #ff007f;
+            color: #fff;
+            border-color: transparent;
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            border: none;
+            position: relative;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .btn-download {
+            background: linear-gradient(135deg, #059669, #10b981);
+            color: #fff;
+        }
+
+        .btn-preview {
+            background: linear-gradient(135deg, #8b5cf6, #ec4899);
+            color: #fff;
+        }
+
+        .btn-open {
+            background: linear-gradient(135deg, #ff007f, #7a00ff);
+            color: #fff;
+            font-weight: 600;
+        }
+
+        /* Preview Container */
+        .preview-container {
+            display: none;
+            margin-top: 10px;
+            background: rgba(0, 0, 0, 0.75);
+            border: 1px solid var(--input-border);
+            border-radius: 14px;
+            padding: 14px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .visualizer-bars {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 5px;
+            height: 38px;
+            margin-bottom: 10px;
+        }
+
+        .v-bar {
+            width: 6px;
+            background: linear-gradient(to top, #ff007f, #00ffd5);
+            border-radius: 3px;
+            animation: bounceBar 0.8s ease-in-out infinite alternate;
+        }
+
+        .v-bar:nth-child(1) { animation-duration: 0.4s; }
+        .v-bar:nth-child(2) { animation-duration: 0.7s; }
+        .v-bar:nth-child(3) { animation-duration: 0.5s; }
+        .v-bar:nth-child(4) { animation-duration: 0.9s; }
+        .v-bar:nth-child(5) { animation-duration: 0.6s; }
+        .v-bar:nth-child(6) { animation-duration: 0.4s; }
+        .v-bar:nth-child(7) { animation-duration: 0.8s; }
+        .v-bar:nth-child(8) { animation-duration: 0.5s; }
+
+        @keyframes bounceBar {
+            0% { height: 6px; }
+            100% { height: 35px; }
+        }
+
+        .preview-container video, .preview-container audio {
+            width: 100%;
+            max-height: 45px;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        /* Owner Footer */
+        .owner-footer {
+            text-align: center;
+            border-top: 1px solid var(--input-border);
+            padding-top: 18px;
+        }
+
+        .whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #16a34a, #22c55e);
+            color: #fff;
+            padding: 11px 22px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4);
+            animation: pulseWhatsapp 2.5s infinite;
+            position: relative;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        @keyframes pulseWhatsapp {
+            0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5); }
+            70% { box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+        }
+
+        /* Ripple Effect */
         .ripple {
             position: absolute;
             border-radius: 50%;
+            background: rgba(255, 255, 255, 0.6);
             transform: scale(0);
-            animation: ripple-animation 0.6s linear;
-            background-color: rgba(255, 255, 255, 0.4);
+            animation: rippleEffect 0.6s linear;
             pointer-events: none;
         }
 
-        @keyframes ripple-animation {
-            to {
-                transform: scale(4);
-                opacity: 0;
-            }
+        @keyframes rippleEffect {
+            to { transform: scale(4); opacity: 0; }
         }
 
-        /* Visualizer Equalizer */
-        .eq-bar {
-            width: 4px;
-            height: 24px;
-            background: #d4af37;
-            border-radius: 4px;
-            animation: eq-bounce 1.2s ease-in-out infinite alternate;
+        /* Loading Spinner */
+        .loader {
+            display: none;
+            text-align: center;
+            margin: 12px 0;
+        }
+        
+        .spinner {
+            width: 34px;
+            height: 34px;
+            border: 3px solid rgba(255,0,127,0.1);
+            border-top-color: #ff007f;
+            border-right-color: #00ffd5;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            margin: 0 auto;
         }
 
-        .dark .eq-bar {
-            background: #00f0ff;
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
 
-        .eq-bar:nth-child(1) { animation-delay: 0.1s; }
-        .eq-bar:nth-child(2) { animation-delay: 0.3s; }
-        .eq-bar:nth-child(3) { animation-delay: 0.5s; }
-        .eq-bar:nth-child(4) { animation-delay: 0.2s; }
-        .eq-bar:nth-child(5) { animation-delay: 0.4s; }
-
-        @keyframes eq-bounce {
-            0% { height: 6px; }
-            100% { height: 32px; }
+        /* Reference-inspired dark neon grid design */
+        body {
+            background-color: #07070c;
+            background-image:
+                linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px),
+                radial-gradient(ellipse at 12% 20%, rgba(255,45,35,.36), transparent 42%),
+                radial-gradient(ellipse at 90% 82%, rgba(132,35,255,.30), transparent 42%);
+            background-size: 46px 46px, 46px 46px, auto, auto;
+        }
+        .ambient-aura { opacity: .16; }
+        .rgb-border-wrapper {
+            max-width: 660px;
+            padding: 1px;
+            border-radius: 32px;
+            background: linear-gradient(135deg, rgba(255,30,85,.8), rgba(90,50,255,.65));
+            box-shadow: 0 0 32px rgba(255,0,90,.12), 0 0 55px rgba(110,40,255,.10);
+            animation: none;
+        }
+        .container {
+            background: rgba(5,6,11,.96);
+            border-radius: 31px;
+            padding: clamp(20px, 5vw, 34px);
+            gap: 22px;
+        }
+        .live-status-bar {
+            border-color: rgba(100,110,160,.3);
+            border-radius: 22px;
+            padding: 10px 15px;
+            color: #aab5d0;
+        }
+        .theme-toggle-btn { border-radius: 16px; min-height: 42px; }
+        .header h1 {
+            white-space: normal;
+            font-size: clamp(22px, 5vw, 31px);
+            background: linear-gradient(90deg, #ff1767, #b64dff, #2688ff);
+            background-size: 100% auto;
+            animation: none;
+            filter: none;
+        }
+        .header p { color: #9aa5bd; font-size: 13px; }
+        .marquee-wrapper { border-radius: 12px; }
+        .tabs { gap: 8px; }
+        .tab {
+            background: rgba(255,255,255,.035);
+            border-color: rgba(255,255,255,.08);
+            border-radius: 13px;
+            padding: 12px 4px;
+        }
+        .tab.active { background: linear-gradient(135deg,#ff1767,#773bff); }
+        .input-group input {
+            min-height: 52px;
+            border: 1px solid rgba(255,30,100,.72);
+            border-radius: 17px;
+            box-shadow: 0 0 18px rgba(255,0,100,.12);
+            font-size: 14px;
+        }
+        .input-group button.action-search-btn {
+            height: 52px;
+            min-width: 58px;
+            border-radius: 16px;
+            color: white;
+            background: linear-gradient(135deg,#ff1767,#326dff);
+            box-shadow: 0 0 18px rgba(255,0,100,.2);
+        }
+        .clear-btn { height: 52px; border-radius: 15px; }
+        .result-box, .preview-container {
+            background: rgba(0,0,0,.42);
+            border-color: rgba(255,255,255,.09);
+            border-radius: 20px;
+        }
+        .btn { padding: 9px 12px; font-size: 12px; border-radius: 10px; }
+        .owner-footer { border-color: rgba(255,255,255,.09); }
+        .whatsapp-btn {
+            background: linear-gradient(110deg,#20d875,#0fae9c);
+            border-radius: 30px;
+            font-size: 13px;
+        }
+        @media (max-width: 480px) {
+            body { padding: 12px; }
+            .container { padding: 18px 14px; gap: 18px; }
+            .live-status-bar { gap: 9px; padding: 9px 10px; }
+            .status-item { gap: 4px; }
+            .theme-toggle-btn { padding: 8px 10px; }
+            .result-box { align-items: flex-start; gap: 10px; padding: 11px; }
+            .result-box img { width: 88px; height: 74px; }
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
+        /* DEVA X premium polish */
+        body { background: #050611; }
+        .ambient-aura {
+            background: linear-gradient(135deg, #ff1767, #742dff, #087dff);
+            opacity: .24;
         }
-        ::-webkit-scrollbar-track {
-            background: transparent;
+        .rgb-border-wrapper {
+            max-width: 720px;
+            background: linear-gradient(115deg, #ff1680, #663bff, #00baff, #8a2bff, #ff1680);
+            background-size: 300% 300%;
+            box-shadow: 0 0 28px rgba(255, 0, 130, .16), 0 0 52px rgba(52, 83, 255, .13);
         }
-        ::-webkit-scrollbar-thumb {
-            background: rgba(150, 150, 150, 0.3);
-            border-radius: 10px;
+        .container { gap: 22px; }
+        .top-bar { gap: 12px; }
+        .live-status-bar { background: rgba(4, 7, 20, .72); }
+        .theme-toggle-btn { background: rgba(4, 7, 20, .72); }
+        .header { padding: 7px 0 2px; }
+        .header h1 {
+            display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline;
+            column-gap: 9px; row-gap: 0; white-space: normal; line-height: 1.04;
+            font-size: clamp(30px, 7vw, 49px); letter-spacing: -1.5px;
+            background: none; -webkit-text-fill-color: initial; filter: none;
+            animation: none; margin-bottom: 12px;
+        }
+        .brand-deva { color: #f8faff; text-shadow: 0 0 18px rgba(89, 143, 255, .24); }
+        .brand-x { color: #ed35ff; background: linear-gradient(135deg,#ff1680,#873cff,#168bff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .brand-downloader { flex-basis: 100%; font-size: .72em; letter-spacing: 1px; color: #e6eaff; }
+        .header p { font-size: 14px; letter-spacing: .35px; color: #a8b7dc; }
+        .marquee-wrapper { border-radius: 30px; border-color: rgba(150, 94, 255, .5); background: rgba(5, 8, 25, .7); }
+        .tabs { gap: 10px; }
+        .tab { border-radius: 15px; padding: 13px 5px; background: rgba(9, 14, 34, .78); border-color: rgba(104, 132, 210, .23); }
+        .tab.active { box-shadow: 0 0 22px rgba(230, 28, 170, .25); }
+        .input-group { gap: 9px; }
+        .input-group input { background: rgba(2, 5, 17, .82); }
+        .result-box { box-shadow: inset 0 0 24px rgba(36, 72, 160, .06); }
+        .video-info h4 { color: #c4a1ff; }
+        .owner-footer { padding-top: 20px; }
+        .whatsapp-btn { box-shadow: 0 0 22px rgba(13, 220, 135, .19); }
+        @media (max-width: 480px) {
+            body { padding: 10px; }
+            .rgb-border-wrapper { border-radius: 28px; }
+            .container { border-radius: 25px; padding: 17px 13px; gap: 17px; }
+            .top-bar { align-items: stretch; }
+            .live-status-bar { flex: 1; min-width: 0; flex-wrap: wrap; gap: 7px; font-size: 10px; }
+            .theme-toggle-btn { padding: 8px 9px; font-size: 11px; }
+            .header h1 { font-size: clamp(27px, 8vw, 36px); }
+            .header p { font-size: 12px; }
+            .tabs { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+            .tab { font-size: 10px; padding: 11px 2px; }
+            .input-group { gap: 6px; }
+            .input-group input { padding: 12px 10px; font-size: 12px; }
+            .input-group button.action-search-btn { min-width: 48px; padding: 0 13px; }
+            .clear-btn { padding: 0 10px; }
+            .result-box { flex-direction: column; }
+            .result-box img { width: 100%; height: 150px; }
+            .video-info { width: 100%; }
+            .whatsapp-btn { white-space: normal; justify-content: center; padding: 12px 16px; }
         }
     </style>
 </head>
-<body class="relative min-h-screen flex flex-col justify-between items-center px-4 py-6 md:px-8">
+<body data-theme="luxury">
 
-    <!-- Floating Canvas Background -->
+    <!-- Canvas for Floating Neon Particles -->
     <canvas id="particleCanvas"></canvas>
-    
-    <!-- Ambient Aura Blur Meshes -->
-    <div class="aura-mesh aura-1 animate-aurora"></div>
-    <div class="aura-mesh aura-2 animate-aurora"></div>
 
-    <!-- Main Container Wrapper -->
-    <div class="relative z-10 w-full max-w-4xl flex flex-col items-center gap-6">
+    <!-- Dynamic Ambient Glow Aura -->
+    <div class="ambient-aura"></div>
 
-        <!-- Top Status Bar Header -->
-        <header class="w-full flex flex-wrap justify-between items-center gap-3">
-            <!-- Left Group: Date & Battery Status Widgets -->
-            <div class="flex items-center gap-3 flex-wrap">
-                <!-- Battery Status Widget -->
-                <div id="batteryStatus" class="glass-pill px-4 py-2 rounded-full flex items-center gap-2.5 text-xs font-semibold tracking-wide text-gray-700 dark:text-gray-200">
-                    <i id="batteryIcon" class="fa-solid fa-battery-full text-amber-500 dark:text-cyan-400 text-sm"></i>
-                    <span id="batteryText">100%</span>
+    <div class="rgb-border-wrapper">
+        <div class="container">
+            <!-- Top Bar: Status + Theme Switcher -->
+            <div class="top-bar">
+                <div class="live-status-bar">
+                    <div class="status-item" id="batteryStatus">
+                        <i class="fa-solid fa-battery-half"></i> <span id="batteryText">...</span>
+                    </div>
+                    <div class="status-item" id="dateStatus">
+                        <i class="fa-regular fa-calendar-days"></i> <span id="dateText">...</span>
+                    </div>
                 </div>
-
-                <!-- Live Date/Time Widget -->
-                <div id="dateStatus" class="glass-pill px-4 py-2 rounded-full flex items-center gap-2.5 text-xs font-semibold tracking-wide text-gray-700 dark:text-gray-200">
-                    <i class="fa-regular fa-clock text-amber-500 dark:text-cyan-400 text-sm"></i>
-                    <span id="dateText">Syncing time...</span>
-                </div>
+                <button class="theme-toggle-btn" onclick="createRipple(event); toggleTheme()">
+                    <i class="fa-solid fa-circle-half-stroke"></i> <span id="themeName">Cyberpunk</span>
+                </button>
             </div>
 
-            <!-- Right Group: Theme Toggler -->
-            <button onclick="toggleTheme()" class="ripple-btn glass-pill px-5 py-2 rounded-full flex items-center gap-2.5 text-xs font-bold tracking-wider uppercase text-gray-800 dark:text-gray-100 hover:scale-105 transition-transform cursor-pointer">
-                <i id="themeIcon" class="fa-solid fa-sun text-amber-500 text-sm"></i>
-                <span id="themeName">PEARL LIGHT</span>
-            </button>
-        </header>
-
-        <!-- Hero Card Header -->
-        <section class="w-full text-center space-y-3 py-4">
-            <!-- Dynamic Marquee Banner -->
-            <div class="w-full overflow-hidden glass-pill rounded-full py-1.5 px-4 mb-2">
-                <div class="animate-marquee whitespace-nowrap text-xs font-semibold text-amber-600 dark:text-cyan-300 tracking-wider">
-                    ⚡ FAST & FREE MEDIA DOWNLOADER • HIGH SPEED AI PARSING • INSTAGRAM, FACEBOOK, MP3 & MP4 PARSER • ULTRA HD CAPABLE ⚡
+            <div class="header">
+                <h1><span class="brand-deva">DEVA</span> <span class="brand-x">X</span><span class="brand-downloader">DOWNLOADER</span></h1>
+                <p>Fast · Simple · Your Media Hub</p>
+                <!-- Floating Marquee -->
+                <div class="marquee-wrapper">
+                    <div class="marquee-content">
+                        🔥 Instant Instagram DL &nbsp;&bull;&nbsp; ⚡ Fast Facebook DL &nbsp;&bull;&nbsp; 🎥 HD Video Search &nbsp;&bull;&nbsp; 🎵 HD Play Music DL &nbsp;&bull;&nbsp; 👑 Pᴏᴡᴇʀᴇᴅ Bʏ Dᴇᴠᴀ-X-Dᴏᴡɴʟᴏᴀᴅᴇʀ
+                    </div>
                 </div>
             </div>
 
-            <h1 class="font-orbitron text-3xl sm:text-5xl md:text-6xl font-black tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-700 dark:from-cyan-400 dark:via-purple-400 dark:to-pink-500 drop-shadow-lg">
-                DEVA-X AI
-            </h1>
-            <p class="text-xs sm:text-sm md:text-base font-semibold tracking-widest text-gray-600 dark:text-gray-300 uppercase">
-                Fast · Simple · Your Media Hub
-            </p>
-        </section>
-
-        <!-- Platform Selection Tabs -->
-        <nav class="w-full flex justify-center">
-            <div class="glass-pill p-1.5 rounded-2xl flex items-center gap-1 sm:gap-2 max-w-full overflow-x-auto">
-                <button onclick="switchPlatform('instagram', this)" class="platform-tab ripple-btn px-4 sm:px-6 py-2.5 rounded-xl font-bold text-xs sm:text-sm tracking-wide transition-all bg-amber-500 text-white dark:bg-cyan-500 dark:text-slate-950 shadow-md">
-                    <i class="fa-brands fa-instagram mr-1.5"></i> Instagram
-                </button>
-                <button onclick="switchPlatform('facebook', this)" class="platform-tab ripple-btn px-4 sm:px-6 py-2.5 rounded-xl font-bold text-xs sm:text-sm tracking-wide transition-all text-gray-600 dark:text-gray-300 hover:text-amber-500 dark:hover:text-cyan-400">
-                    <i class="fa-brands fa-facebook mr-1.5"></i> Facebook
-                </button>
-                <button onclick="switchPlatform('video', this)" class="platform-tab ripple-btn px-4 sm:px-6 py-2.5 rounded-xl font-bold text-xs sm:text-sm tracking-wide transition-all text-gray-600 dark:text-gray-300 hover:text-amber-500 dark:hover:text-cyan-400">
-                    <i class="fa-solid fa-video mr-1.5"></i> Video
-                </button>
-                <button onclick="switchPlatform('play', this)" class="platform-tab ripple-btn px-4 sm:px-6 py-2.5 rounded-xl font-bold text-xs sm:text-sm tracking-wide transition-all text-gray-600 dark:text-gray-300 hover:text-amber-500 dark:hover:text-cyan-400">
-                    <i class="fa-solid fa-music mr-1.5"></i> Audio Play
-                </button>
+            <!-- Tabs -->
+            <div class="tabs">
+                <div class="tab active" onclick="createRipple(event); switchPlatform('instagram', this)"><i class="fa-brands fa-instagram"></i> Insta</div>
+                <div class="tab" onclick="createRipple(event); switchPlatform('facebook', this)"><i class="fa-brands fa-facebook"></i> FB</div>
+                <div class="tab" onclick="createRipple(event); switchPlatform('video', this)"><i class="fa-solid fa-video"></i> Video</div>
+                <div class="tab" onclick="createRipple(event); switchPlatform('play', this)"><i class="fa-solid fa-music"></i> Play</div>
             </div>
-        </nav>
 
-        <!-- Search Input Bar Section -->
-        <section class="w-full">
-            <div class="glass-pill p-2 sm:p-3 rounded-2xl sm:rounded-3xl flex items-center gap-2 shadow-xl focus-within:ring-2 focus-within:ring-amber-400 dark:focus-within:ring-cyan-400 transition-all">
-                <div class="pl-3 text-gray-400">
-                    <i class="fa-solid fa-link text-lg"></i>
+            <!-- Input Form with Clear Button Outside -->
+            <div class="input-group">
+                <input type="text" id="videoUrl" placeholder="Paste Instagram link here...">
+                <button class="clear-btn" onclick="createRipple(event); clearInput()" title="Clear Search"><i class="fa-solid fa-trash-can"></i></button>
+                <button class="action-search-btn" onclick="createRipple(event); fetchMedia()"><i class="fa-solid fa-bolt"></i></button>
+            </div>
+
+            <!-- Loader -->
+            <div class="loader" id="loader">
+                <div class="spinner"></div>
+                <p style="font-size: 11px; margin-top: 5px; color: var(--accent-color); font-weight: 500;">Fetching media...</p>
+            </div>
+
+            <!-- Result Card -->
+            <div class="result-box" id="resultBox">
+                <img id="thumbnail" src="" alt="Thumbnail">
+                <div class="video-info">
+                    <h4 id="videoTitle">Media Ready</h4>
+                    <!-- Song Metadata Tags Display -->
+                    <div class="meta-badges" id="metaBadges">
+                        <span class="badge"><i class="fa-solid fa-user-music"></i> <span id="badgeArtist">AB MASTER</span></span>
+                        <span class="badge"><i class="fa-regular fa-clock"></i> <span id="badgeDuration">3:45</span></span>
+                        <span class="badge"><i class="fa-solid fa-headphones"></i> 320kbps MP3</span>
+                    </div>
+                    <!-- Multi-Quality Selector -->
+                    <div class="quality-selector" id="qualitySelector">
+                        <button class="q-btn active" onclick="createRipple(event); setQuality('hd', this)">HD</button>
+                        <button class="q-btn" onclick="createRipple(event); setQuality('sd', this)">SD</button>
+                        <button class="q-btn" onclick="createRipple(event); setQuality('audio', this)">MP3</button>
+                    </div>
+                    <div class="action-btns">
+                        <a id="downloadBtn" href="#" class="btn btn-download" download target="_blank" onclick="createRipple(event)"><i class="fa-solid fa-download"></i> Download</a>
+                        <button class="btn btn-preview" onclick="createRipple(event); togglePreview()"><i class="fa-solid fa-play"></i> Preview</button>
+                        <a id="openBtn" href="#" class="btn btn-open" target="_blank" onclick="createRipple(event)"><i class="fa-solid fa-external-link-alt"></i> Open</a>
+                    </div>
                 </div>
-                
-                <input type="text" id="videoUrl" placeholder="Paste media link here (Instagram, Facebook, Video, Audio)..." class="w-full bg-transparent border-none outline-none text-sm sm:text-base font-medium text-gray-800 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500">
-                
-                <!-- Quick Paste Button -->
-                <button onclick="pasteClipboard()" title="Paste from clipboard" class="ripple-btn p-2.5 rounded-xl text-gray-500 hover:text-amber-600 dark:hover:text-cyan-400 hover:bg-gray-100 dark:hover:bg-slate-800/60 transition-colors">
-                    <i class="fa-regular fa-paste text-base sm:text-lg"></i>
-                </button>
-                
-                <!-- Clear Button -->
-                <button onclick="clearInput()" title="Clear text" class="ripple-btn p-2.5 rounded-xl text-gray-500 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-950/40 transition-colors">
-                    <i class="fa-solid fa-trash-can text-base sm:text-lg"></i>
-                </button>
-                
-                <!-- Action Fetch Button -->
-                <button onclick="fetchMedia()" class="ripple-btn bg-gradient-to-r from-amber-500 to-yellow-600 dark:from-cyan-500 dark:to-blue-600 hover:from-amber-600 hover:to-yellow-700 dark:hover:from-cyan-400 dark:hover:to-blue-500 text-white dark:text-slate-950 px-5 sm:px-7 py-3 rounded-xl sm:rounded-2xl font-bold text-sm tracking-wide flex items-center gap-2 shadow-lg hover:shadow-amber-500/25 dark:hover:shadow-cyan-500/30 transition-all">
-                    <span>Fetch</span>
-                    <i class="fa-solid fa-bolt"></i>
-                </button>
             </div>
-        </section>
 
-        <!-- Loader Component -->
-        <div id="loader" class="hidden flex-col items-center justify-center py-8 gap-3">
-            <div class="w-12 h-12 border-4 border-amber-500/30 dark:border-cyan-500/30 border-t-amber-500 dark:border-t-cyan-400 rounded-full animate-spin"></div>
-            <p class="text-xs font-bold tracking-widest text-gray-500 dark:text-gray-400 uppercase animate-pulse">Processing Media Link...</p>
+            <!-- Built-in Preview Player Modal with Audio Visualizer -->
+            <div class="preview-container" id="previewContainer">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                    <span style="font-size:11px; color:var(--accent-color); font-weight:600;"><i class="fa-solid fa-headphones"></i> Live Audio Spectrum Player</span>
+                    <i class="fa-solid fa-xmark" style="cursor:pointer; font-size:14px; color:#fff;" onclick="togglePreview()"></i>
+                </div>
+                <!-- Real-Time Audio Visualizer / Frequency Spectrum -->
+                <div class="visualizer-bars">
+                    <div class="v-bar"></div>
+                    <div class="v-bar"></div>
+                    <div class="v-bar"></div>
+                    <div class="v-bar"></div>
+                    <div class="v-bar"></div>
+                    <div class="v-bar"></div>
+                    <div class="v-bar"></div>
+                    <div class="v-bar"></div>
+                </div>
+                <div id="playerWrapper"></div>
+            </div>
+
+            <!-- Owner WhatsApp Button Footer -->
+            <div class="owner-footer">
+                <a href="https://wa.me/916260021735?text=Hello%20DEVA%20AI,%20I%20want%20to%20talk%20about%20your%20DEVA AI%20Downloader!" class="whatsapp-btn" target="_blank" onclick="createRipple(event)">
+                    <i class="fa-brands fa-whatsapp" style="font-size: 18px;"></i> Contact Owner on WhatsApp
+                </a>
+            </div>
         </div>
-
-        <!-- Result Card Container -->
-        <section id="resultBox" class="hidden w-full glass-pill rounded-3xl p-5 sm:p-7 space-y-6 transition-all">
-            <div class="flex flex-col md:flex-row gap-6 items-center">
-                <!-- Thumbnail -->
-                <div class="relative w-full md:w-64 aspect-video rounded-2xl overflow-hidden bg-slate-950 shadow-md group">
-                    <img id="thumbnail" src="" alt="Media Preview" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" onerror="this.src='https://placehold.co/600x400/1e293b/ffffff?text=No+Preview+Available'">
-                    <div class="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                        <button onclick="togglePreview()" class="w-12 h-12 rounded-full bg-white/90 text-slate-900 flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
-                            <i class="fa-solid fa-play text-lg ml-0.5"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Info & Badges -->
-                <div class="flex-1 w-full space-y-3">
-                    <h3 id="videoTitle" class="text-base sm:text-xl font-bold text-gray-800 dark:text-gray-100 line-clamp-2 leading-snug">
-                        Media Title Header Placeholder
-                    </h3>
-
-                    <!-- Meta Badges -->
-                    <div id="metaBadges" class="flex flex-wrap items-center gap-2 pt-1">
-                        <span id="badgeArtist" class="px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-800 dark:bg-cyan-950 dark:text-cyan-300 border border-amber-200 dark:border-cyan-800">
-                            <i class="fa-solid fa-user text-xs mr-1"></i> DEVA-X AI
-                        </span>
-                        <span id="badgeDuration" class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-700 dark:bg-slate-800 dark:text-gray-300 border border-gray-200 dark:border-slate-700">
-                            <i class="fa-regular fa-clock text-xs mr-1"></i> --:--
-                        </span>
-                        <span class="px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-800 dark:bg-green-950 dark:text-green-300 border border-green-200 dark:border-green-800">
-                            <i class="fa-solid fa-shield-halved text-xs mr-1"></i> Verified Safe
-                        </span>
-                    </div>
-
-                    <!-- Quality Selector Buttons -->
-                    <div id="qualitySelector" class="pt-2 flex flex-wrap gap-2">
-                        <button onclick="setQuality('HD', this)" class="quality-btn ripple-btn px-4 py-1.5 rounded-lg text-xs font-bold bg-amber-500 text-white dark:bg-cyan-500 dark:text-slate-950 shadow">
-                            HD Quality
-                        </button>
-                        <button onclick="setQuality('SD', this)" class="quality-btn ripple-btn px-4 py-1.5 rounded-lg text-xs font-bold bg-gray-200 dark:bg-slate-800 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-slate-700">
-                            SD Quality
-                        </button>
-                        <button onclick="setQuality('MP3', this)" class="quality-btn ripple-btn px-4 py-1.5 rounded-lg text-xs font-bold bg-gray-200 dark:bg-slate-800 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-slate-700">
-                            MP3 Audio
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Download & Preview Action Buttons -->
-            <div class="flex flex-col sm:flex-row items-center gap-3 pt-4 border-t border-gray-200/50 dark:border-slate-800">
-                <a id="downloadBtn" href="#" target="_blank" download class="w-full sm:flex-1 ripple-btn py-3.5 px-6 rounded-2xl bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold text-sm tracking-wide flex items-center justify-center gap-2 shadow-lg shadow-green-500/20 text-center">
-                    <i class="fa-solid fa-download"></i> Direct Download
-                </a>
-                
-                <button onclick="togglePreview()" class="w-full sm:w-auto ripple-btn py-3.5 px-6 rounded-2xl bg-amber-500/10 dark:bg-cyan-500/10 hover:bg-amber-500/20 dark:hover:bg-cyan-500/20 text-amber-700 dark:text-cyan-300 border border-amber-500/30 dark:border-cyan-500/30 font-bold text-sm tracking-wide flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-eye"></i> Quick Preview
-                </button>
-
-                <a id="openBtn" href="#" target="_blank" class="w-full sm:w-auto ripple-btn py-3.5 px-6 rounded-2xl bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 text-gray-700 dark:text-gray-200 font-bold text-sm tracking-wide flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Source
-                </a>
-            </div>
-        </section>
-
-        <!-- Preview Player Modal / Embed -->
-        <section id="previewContainer" class="hidden w-full glass-pill rounded-3xl p-5 space-y-4">
-            <div class="flex justify-between items-center pb-2 border-b border-gray-200/50 dark:border-slate-800">
-                <div class="flex items-center gap-3">
-                    <!-- Equalizer Animation -->
-                    <div class="flex items-end gap-1 h-8 px-2">
-                        <div class="eq-bar"></div>
-                        <div class="eq-bar"></div>
-                        <div class="eq-bar"></div>
-                        <div class="eq-bar"></div>
-                        <div class="eq-bar"></div>
-                    </div>
-                    <span class="text-sm font-bold text-gray-800 dark:text-gray-100">Live Media Player</span>
-                </div>
-                
-                <button onclick="togglePreview()" class="text-gray-400 hover:text-red-500 p-2">
-                    <i class="fa-solid fa-xmark text-xl"></i>
-                </button>
-            </div>
-
-            <!-- Dynamic Media Player Wrapper -->
-            <div id="playerWrapper" class="w-full aspect-video rounded-2xl overflow-hidden bg-black flex items-center justify-center">
-                <p class="text-gray-500 text-xs">Media element will mount here on fetch.</p>
-            </div>
-        </section>
-
     </div>
 
-    <!-- Owner Footer -->
-    <footer class="relative z-10 mt-12 mb-4 text-center space-y-3">
-        <a href="https://wa.me/916260021735" target="_blank" class="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white text-xs sm:text-sm font-bold tracking-wider shadow-lg shadow-green-500/25 transition-all transform hover:scale-105 animate-pulse-slow">
-            <i class="fa-brands fa-whatsapp text-lg"></i>
-            <span>CONTACT OWNER ON WHATSAPP</span>
-        </a>
-        
-        <p class="text-xs text-gray-500 dark:text-gray-400 font-medium tracking-wide">
-            © 2026 DEVA-X AI Media Processing Ecosystem. All Rights Reserved.
-        </p>
-    </footer>
-
-    <!-- JavaScript Functional Engine -->
     <script>
-        /* State Variables */
-        let currentPlatform = 'instagram';
-        let fetchedData = null;
-        let activeQuality = 'HD';
+        function clearInput() {
+            const input = document.getElementById('videoUrl');
+            input.value = '';
+            input.focus();
+            document.getElementById('resultBox').style.display = 'none';
+            document.getElementById('previewContainer').style.display = 'none';
+        }
 
-        /* -------------------------------------------------------------
-           1. Particle Canvas System (60fps dynamic background)
-        ------------------------------------------------------------- */
+        function createRipple(event) {
+            const button = event.currentTarget;
+            const circle = document.createElement("span");
+            const diameter = Math.max(button.clientWidth, button.clientHeight);
+            const radius = diameter / 2;
+
+            circle.style.width = circle.style.height = `${diameter}px`;
+            circle.style.left = `${event.clientX - button.getBoundingClientRect().left - radius}px`;
+            circle.style.top = `${event.clientY - button.getBoundingClientRect().top - radius}px`;
+            circle.classList.add("ripple");
+
+            const existingRipple = button.getElementsByClassName("ripple")[0];
+            if (existingRipple) existingRipple.remove();
+
+            button.appendChild(circle);
+        }
+
         const canvas = document.getElementById('particleCanvas');
         const ctx = canvas.getContext('2d');
-        let particles = [];
+        let particlesArray = [];
 
         function resizeCanvas() {
             canvas.width = window.innerWidth;
@@ -440,26 +878,23 @@
 
         class Particle {
             constructor() {
-                this.reset();
-            }
-            reset() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 1;
+                this.size = Math.random() * 2.5 + 1;
                 this.speedX = (Math.random() - 0.5) * 0.8;
                 this.speedY = (Math.random() - 0.5) * 0.8;
-                this.alpha = Math.random() * 0.5 + 0.2;
+                this.color = Math.random() > 0.5 ? '#ff007f' : '#00ffd5';
             }
             update() {
                 this.x += this.speedX;
                 this.y += this.speedY;
-                if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
-                    this.reset();
-                }
+                if (this.x < 0 || this.x > canvas.width) this.speedX = -this.speedX;
+                if (this.y < 0 || this.y > canvas.height) this.speedY = -this.speedY;
             }
             draw() {
-                const isDark = document.documentElement.classList.contains('dark');
-                ctx.fillStyle = isDark ? `rgba(0, 240, 255, ${this.alpha})` : `rgba(212, 175, 55, ${this.alpha})`;
+                ctx.fillStyle = this.color;
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = this.color;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
@@ -467,249 +902,223 @@
         }
 
         function initParticles() {
-            particles = [];
-            const count = Math.min(Math.floor(window.innerWidth / 15), 60);
-            for (let i = 0; i < count; i++) {
-                particles.push(new Particle());
-            }
+            particlesArray = [];
+            for (let i = 0; i < 60; i++) particlesArray.push(new Particle());
         }
         initParticles();
 
         function animateParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
+            particlesArray.forEach(p => { p.update(); p.draw(); });
             requestAnimationFrame(animateParticles);
         }
         animateParticles();
 
-        /* -------------------------------------------------------------
-           2. Real-time Clock & Battery Monitor
-        ------------------------------------------------------------- */
+        function toggleTheme() {
+            const body = document.body;
+            const currentTheme = body.getAttribute('data-theme');
+            const themeName = document.getElementById('themeName');
+            
+            if (currentTheme === 'luxury') {
+                body.setAttribute('data-theme', 'cyberpunk');
+                themeName.innerText = 'Luxury';
+            } else {
+                body.setAttribute('data-theme', 'luxury');
+                themeName.innerText = 'Cyberpunk';
+            }
+        }
+
         function updateDateTime() {
-            const dateText = document.getElementById('dateText');
             const now = new Date();
-            dateText.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }) + ' • ' + now.toLocaleDateString([], { month: 'short', day: 'numeric' });
+            const options = { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+            document.getElementById('dateText').innerText = now.toLocaleDateString('en-US', options);
         }
         setInterval(updateDateTime, 1000);
         updateDateTime();
 
-        function updateBatteryStatus() {
-            const batteryText = document.getElementById('batteryText');
-            const batteryIcon = document.getElementById('batteryIcon');
-            
+        async function updateBatteryStatus() {
             if ('getBattery' in navigator) {
-                navigator.getBattery().then(battery => {
-                    function updateAllBatteryInfo() {
+                try {
+                    const battery = await navigator.getBattery();
+                    function updateStatus() {
                         const level = Math.round(battery.level * 100);
-                        batteryText.textContent = level + '% ' + (battery.charging ? '(Charging)' : '');
-                        if (battery.charging) {
-                            batteryIcon.className = 'fa-solid fa-bolt text-amber-500 dark:text-cyan-400 animate-pulse';
-                        } else if (level <= 20) {
-                            batteryIcon.className = 'fa-solid fa-battery-quarter text-red-500';
-                        } else {
-                            batteryIcon.className = 'fa-solid fa-battery-full text-amber-500 dark:text-cyan-400';
-                        }
+                        const isCharging = battery.charging;
+                        let iconClass = "fa-battery-full";
+                        if (level <= 20) iconClass = "fa-battery-quarter";
+                        else if (level <= 50) iconClass = "fa-battery-half";
+                        else if (level <= 80) iconClass = "fa-battery-three-quarters";
+
+                        let chargingText = isCharging ? ' ⚡' : '';
+                        document.getElementById('batteryStatus').innerHTML = `<i class="fa-solid ${iconClass}"></i> <span>${level}%${chargingText}</span>`;
                     }
-                    updateAllBatteryInfo();
-                    battery.addEventListener('levelchange', updateAllBatteryInfo);
-                    battery.addEventListener('chargingchange', updateAllBatteryInfo);
-                });
+                    updateStatus();
+                    battery.addEventListener('levelchange', updateStatus);
+                    battery.addEventListener('chargingchange', updateStatus);
+                } catch (e) {
+                    document.getElementById('batteryStatus').innerHTML = `<i class="fa-solid fa-bolt"></i> <span>Ready</span>`;
+                }
             } else {
-                batteryText.textContent = '100% (Plugged)';
+                document.getElementById('batteryStatus').innerHTML = `<i class="fa-solid fa-bolt"></i> <span>Master</span>`;
             }
         }
         updateBatteryStatus();
 
-        /* -------------------------------------------------------------
-           3. UI Utilities (Theme, Ripple, Inputs, Tabs)
-        ------------------------------------------------------------- */
-        function toggleTheme() {
-            const html = document.documentElement;
-            const themeName = document.getElementById('themeName');
-            const themeIcon = document.getElementById('themeIcon');
-            
-            if (html.classList.contains('dark')) {
-                html.classList.remove('dark');
-                themeName.textContent = 'PEARL LIGHT';
-                themeIcon.className = 'fa-solid fa-sun text-amber-500 text-sm';
-            } else {
-                html.classList.add('dark');
-                themeName.textContent = 'OBSIDIAN DARK';
-                themeIcon.className = 'fa-solid fa-moon text-cyan-400 text-sm';
-            }
-        }
+        let currentPlatform = 'instagram';
+        let mediaLinksData = { hd: '#', sd: '#', audio: '#' };
+        let activeMediaUrl = '#';
 
-        function createRipple(event) {
-            const btn = event.currentTarget;
-            const circle = document.createElement('span');
-            const diameter = Math.max(btn.clientWidth, btn.clientHeight);
-            const radius = diameter / 2;
-            const rect = btn.getBoundingClientRect();
-            
-            circle.style.width = circle.style.height = `${diameter}px`;
-            circle.style.left = `${event.clientX - rect.left - radius}px`;
-            circle.style.top = `${event.clientY - rect.top - radius}px`;
-            circle.classList.add('ripple');
-            
-            const ripple = btn.getElementsByClassName('ripple')[0];
-            if (ripple) ripple.remove();
-            
-            btn.appendChild(circle);
-        }
-
-        document.querySelectorAll('.ripple-btn').forEach(btn => {
-            btn.addEventListener('click', createRipple);
-        });
-
-        function clearInput() {
-            document.getElementById('videoUrl').value = '';
-            document.getElementById('resultBox').classList.add('hidden');
-            document.getElementById('previewContainer').classList.add('hidden');
-        }
-
-        async function pasteClipboard() {
-            try {
-                const text = await navigator.clipboard.readText();
-                if (text) {
-                    document.getElementById('videoUrl').value = text;
-                }
-            } catch (err) {
-                // Fallback prompt if clipboard permissions are restricted
-                const input = prompt("Paste your URL here:");
-                if (input) document.getElementById('videoUrl').value = input;
-            }
-        }
-
-        function switchPlatform(platform, el) {
+        function switchPlatform(platform, tabElement) {
             currentPlatform = platform;
-            document.querySelectorAll('.platform-tab').forEach(tab => {
-                tab.className = 'platform-tab ripple-btn px-4 sm:px-6 py-2.5 rounded-xl font-bold text-xs sm:text-sm tracking-wide transition-all text-gray-600 dark:text-gray-300 hover:text-amber-500 dark:hover:text-cyan-400';
-            });
-            el.className = 'platform-tab ripple-btn px-4 sm:px-6 py-2.5 rounded-xl font-bold text-xs sm:text-sm tracking-wide transition-all bg-amber-500 text-white dark:bg-cyan-500 dark:text-slate-950 shadow-md';
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            if (tabElement) tabElement.classList.add('active');
+            
+            const input = document.getElementById('videoUrl');
+            if (platform === 'instagram') {
+                input.placeholder = "Paste Instagram link here...";
+            } else if (platform === 'facebook') {
+                input.placeholder = "Paste Facebook link here...";
+            } else if (platform === 'video') {
+                input.placeholder = "Search video (e.g., Despacito)...";
+            } else if (platform === 'play') {
+                input.placeholder = "Search song (e.g., Shape of You)...";
+            }
+            document.getElementById('resultBox').style.display = 'none';
+            document.getElementById('previewContainer').style.display = 'none';
         }
 
-        function setQuality(quality, el) {
-            activeQuality = quality;
-            document.querySelectorAll('.quality-btn').forEach(btn => {
-                btn.className = 'quality-btn ripple-btn px-4 py-1.5 rounded-lg text-xs font-bold bg-gray-200 dark:bg-slate-800 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-slate-700';
-            });
-            el.className = 'quality-btn ripple-btn px-4 py-1.5 rounded-lg text-xs font-bold bg-amber-500 text-white dark:bg-cyan-500 dark:text-slate-950 shadow';
-            
-            // Adjust download link target quality if payload contains options
-            if (fetchedData && fetchedData.downloadUrl) {
-                document.getElementById('downloadBtn').href = fetchedData.downloadUrl;
-            }
+        function setQuality(qualityType, btnElement) {
+            document.querySelectorAll('.q-btn').forEach(b => b.classList.remove('active'));
+            btnElement.classList.add('active');
+
+            activeMediaUrl = mediaLinksData[qualityType] || mediaLinksData.hd;
+            document.getElementById('downloadBtn').href = activeMediaUrl;
+            document.getElementById('openBtn').href = activeMediaUrl;
         }
 
         function togglePreview() {
-            const container = document.getElementById('previewContainer');
-            if (container.classList.contains('hidden')) {
-                container.classList.remove('hidden');
-                container.scrollIntoView({ behavior: 'smooth' });
+            const previewBox = document.getElementById('previewContainer');
+            const wrapper = document.getElementById('playerWrapper');
+            
+            if (previewBox.style.display === 'block') {
+                previewBox.style.display = 'none';
+                wrapper.innerHTML = '';
             } else {
-                container.classList.add('hidden');
+                previewBox.style.display = 'block';
+                if (currentPlatform === 'play' || currentPlatform === 'video') {
+                    wrapper.innerHTML = `<audio controls autoplay src="${activeMediaUrl}"></audio>`;
+                } else {
+                    wrapper.innerHTML = `<video controls autoplay src="${activeMediaUrl}"></video>`;
+                }
             }
         }
 
-        /* -------------------------------------------------------------
-           4. API Integration Engine
-        ------------------------------------------------------------- */
-        async function fetchMedia() {
-            const urlInput = document.getElementById('videoUrl').value.trim();
-            const loader = document.getElementById('loader');
-            const resultBox = document.getElementById('resultBox');
-            const previewContainer = document.getElementById('previewContainer');
+        function findMediaUrl(value) {
+            if (!value) return '';
+            if (typeof value === 'string') {
+                const v = value.trim();
+                return /^https?:\/\//i.test(v) ? v : '';
+            }
+            if (Array.isArray(value)) {
+                for (const item of value) {
+                    const found = findMediaUrl(item);
+                    if (found) return found;
+                }
+                return '';
+            }
+            if (typeof value === 'object') {
+                const keys = ['url','download_url','downloadUrl','video_url','videoUrl','audio_url','audioUrl','mp3','link','src','file','direct_url','directUrl'];
+                for (const key of keys) {
+                    const found = findMediaUrl(value[key]);
+                    if (found) return found;
+                }
+                for (const key of ['data','result','results','media','video','audio','downloads','formats','links','items']) {
+                    const found = findMediaUrl(value[key]);
+                    if (found) return found;
+                }
+            }
+            return '';
+        }
 
-            if (!urlInput) {
-                alert('Please enter or paste a valid media URL.');
+        function getNestedValue(data, keys, fallback = '') {
+            for (const obj of [data, data && data.data, data && data.result, data && data.media, data && data.video, data && data.track]) {
+                if (!obj || typeof obj !== 'object') continue;
+                for (const key of keys) if (obj[key] != null && obj[key] !== '') return obj[key];
+            }
+            return fallback;
+        }
+
+        async function fetchMedia() {
+            const queryVal = document.getElementById('videoUrl').value.trim();
+            if (!queryVal) {
+                alert('Please enter a valid URL or search query!');
                 return;
             }
 
-            // Show Loader, Hide Old Results
-            loader.classList.remove('hidden');
-            loader.classList.add('flex');
-            resultBox.classList.add('hidden');
-            previewContainer.classList.add('hidden');
-
-            const targetApi = `https://api.sayan-nexuswork.workers.dev/${currentPlatform}?url=${encodeURIComponent(urlInput)}`;
+            const loader = document.getElementById('loader');
+            loader.style.display = 'block';
+            document.getElementById('resultBox').style.display = 'none';
+            document.getElementById('previewContainer').style.display = 'none';
 
             try {
-                const response = await fetch(targetApi);
-                const data = await response.json();
-
-                loader.classList.add('hidden');
-                loader.classList.remove('flex');
-
-                if (data && (data.status === true || data.url || data.result || data.data)) {
-                    // Normalize API output structure
-                    const payload = data.result || data.data || data;
-                    const mediaUrl = payload.video || payload.url || payload.downloadUrl || (Array.isArray(payload) ? payload[0] : urlInput);
-                    const thumbUrl = payload.thumbnail || payload.thumb || payload.cover || 'https://placehold.co/600x400/1e293b/ffffff?text=DEVA-X+AI';
-                    const titleText = payload.title || payload.caption || 'DEVA-X AI Processed Media Element';
-
-                    fetchedData = {
-                        downloadUrl: mediaUrl,
-                        thumb: thumbUrl,
-                        title: titleText
-                    };
-
-                    // Populate UI Elements
-                    document.getElementById('thumbnail').src = thumbUrl;
-                    document.getElementById('videoTitle').textContent = titleText;
-                    document.getElementById('badgeArtist').innerHTML = `<i class="fa-solid fa-user text-xs mr-1"></i> ${payload.author || 'AI Hub'}`;
-                    document.getElementById('badgeDuration').innerHTML = `<i class="fa-regular fa-clock text-xs mr-1"></i> ${payload.duration || '01:30'}`;
-                    
-                    document.getElementById('downloadBtn').href = mediaUrl;
-                    document.getElementById('openBtn').href = urlInput;
-
-                    // Mount Preview Player
-                    const playerWrapper = document.getElementById('playerWrapper');
-                    if (currentPlatform === 'play' || mediaUrl.endsWith('.mp3')) {
-                        playerWrapper.innerHTML = `
-                            <audio controls class="w-full max-w-md p-4">
-                                <source src="${mediaUrl}" type="audio/mpeg">
-                                Your browser does not support audio playback.
-                            </audio>`;
-                    } else {
-                        playerWrapper.innerHTML = `
-                            <video controls class="w-full h-full object-contain">
-                                <source src="${mediaUrl}" type="video/mp4">
-                                Your browser does not support video playback.
-                            </video>`;
-                    }
-
-                    resultBox.classList.remove('hidden');
-                    resultBox.scrollIntoView({ behavior: 'smooth' });
-
-                } else {
-                    // Error Handling Fallback Mock Display for smooth user UX
-                    alert('Primary API parsing limited. Displaying processed preview mode.');
-                    
-                    fetchedData = {
-                        downloadUrl: urlInput,
-                        thumb: 'https://placehold.co/600x400/0f172a/00f0ff?text=DEVA-X+Stream+Ready',
-                        title: 'Media Stream Ready for Direct Processing'
-                    };
-
-                    document.getElementById('thumbnail').src = fetchedData.thumb;
-                    document.getElementById('videoTitle').textContent = fetchedData.title;
-                    document.getElementById('downloadBtn').href = urlInput;
-                    document.getElementById('openBtn').href = urlInput;
-                    
-                    resultBox.classList.remove('hidden');
+                let apiUrl = '';
+                if (currentPlatform === 'instagram') {
+                    apiUrl = `https://api.sayan-nexuswork.workers.dev/insta?url=${encodeURIComponent(queryVal)}`;
+                } else if (currentPlatform === 'facebook') {
+                    apiUrl = `https://api.sayan-nexuswork.workers.dev/facebook?url=${encodeURIComponent(queryVal)}`;
+                } else if (currentPlatform === 'video') {
+                    apiUrl = `https://api.sayan-nexuswork.workers.dev/video?query=${encodeURIComponent(queryVal)}`;
+                } else if (currentPlatform === 'play') {
+                    apiUrl = `https://api.sayan-nexuswork.workers.dev/play?query=${encodeURIComponent(queryVal)}`;
                 }
 
+                const response = await fetch(apiUrl, { method: 'GET', headers: { 'Accept': 'application/json' } });
+                const raw = await response.text();
+                let data;
+                try { data = JSON.parse(raw); }
+                catch { throw new Error(`API returned non-JSON data (HTTP ${response.status}). The API service may be unavailable.`); }
+
+                if (!response.ok) {
+                    const message = getNestedValue(data, ['message','error','detail'], `HTTP ${response.status}`);
+                    throw new Error(String(message));
+                }
+                if (!data || data.success === false || data.status === 'error' || data.error) {
+                    const message = getNestedValue(data, ['message','error','detail'], 'The API did not return a successful result.');
+                    throw new Error(String(message));
+                }
+
+                const primaryLink = findMediaUrl(data);
+                if (!primaryLink) {
+                    const message = getNestedValue(data, ['message','error','detail'], 'API response did not contain a direct media URL. The API endpoint may use a different format or may not support this feature.');
+                    throw new Error(String(message));
+                }
+
+                const thumb = getNestedValue(data, ['thumbnail','thumbnail_url','cover','image','artwork','image_url'], 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=200');
+                const title = getNestedValue(data, ['title','name','track_name','video_title'], 'Media Download Ready');
+                const artist = getNestedValue(data, ['artist','channel','uploader','author'], currentPlatform === 'play' ? 'Music' : 'Media');
+                const duration = getNestedValue(data, ['duration','length','timestamp'], '');
+                const hd = findMediaUrl(getNestedValue(data, ['hd','high_quality','highQuality','video_hd'], '')) || primaryLink;
+                const sd = findMediaUrl(getNestedValue(data, ['sd','low_quality','lowQuality','video_sd'], '')) || primaryLink;
+                const audio = findMediaUrl(getNestedValue(data, ['audio','mp3','audio_url','music'], '')) || primaryLink;
+
+                mediaLinksData = { hd, sd, audio };
+                activeMediaUrl = currentPlatform === 'play' ? audio : hd;
+                document.getElementById('thumbnail').src = typeof thumb === 'string' ? thumb : 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=200';
+                document.getElementById('videoTitle').innerText = String(title);
+                document.getElementById('badgeArtist').innerText = String(artist);
+                document.getElementById('badgeDuration').innerText = duration ? String(duration) : 'Ready';
+
+                document.querySelectorAll('.q-btn').forEach((b, idx) => {
+                    b.classList.toggle('active', currentPlatform === 'play' ? idx === 2 : idx === 0);
+                });
+                document.getElementById('downloadBtn').href = activeMediaUrl;
+                document.getElementById('openBtn').href = activeMediaUrl;
+                document.getElementById('resultBox').style.display = 'flex';
             } catch (error) {
-                console.error('Fetch Error:', error);
-                loader.classList.add('hidden');
-                loader.classList.remove('flex');
-                alert('Connection to DEVA-X AI processing servers failed. Check your network or media link.');
+                alert('Download/Search failed: ' + (error && error.message ? error.message : 'Unknown API error'));
+            } finally {
+                loader.style.display = 'none';
             }
         }
     </script>
 </body>
 </html>
-```
